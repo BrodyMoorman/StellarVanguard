@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://5qsjvqrx1ij2"]
+
+[ext_resource type="Texture2D" uid="uid://qo4wsuvtjqeq" path="res://Assets/SpriteSheets/enemy stand in until we get good art.png" id="1_x7suu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qynnv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_x7suu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d1i2m"]
+
+[node name="AlienEnemy1" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+sprite_frames = SubResource("SpriteFrames_qynnv")
+
+[node name="RayCast2D" type="RayCast2D" parent="CharacterBody2D"]
+position = Vector2(-8, -9)
+target_position = Vector2(0, 15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(3, -6)
+shape = SubResource("CircleShape2D_d1i2m")
