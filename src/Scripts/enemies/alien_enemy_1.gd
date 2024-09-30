@@ -31,3 +31,12 @@ func flip() -> void:
 	else: 
 		speed = -1 * abs(speed)
 		
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	
+	if area.get_parent().is_in_group("Player"):
+		# add the attack animation here
+		# $AnimationPlayer.play("attack") 
+		area.get_parent().queue_free()  # placeholding for doing damage, this just kills the player immediately
+		# var player = area.get_parent()
+		# player.take_damage(10) # have the player take some damage
