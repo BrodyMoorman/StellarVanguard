@@ -4,15 +4,16 @@ extends CharacterBody2D
 @export var speed: int = 300.0
 @export var jump_velocity: int = -400.0
 @onready var animations = $AnimatedSprite2D
+@onready var health_bar = $ProgressBar
 
-var health = 100
-var max_health = 100
-var min_health = 0
+
+var health: float = 100
+var max_health: float = 100
 var dead: bool
-var can_take_damage: bool
-var direction = "right"
+var can_take_damage: bool = true
+var direction: String = "right"
 
-func updateAnimation():
+func updateAnimation() -> void:
 	if velocity.length() == 0:
 		animations.play("idle_" + direction)
 	else:
@@ -22,7 +23,26 @@ func updateAnimation():
 		animations.play("move_" + direction)
 	
 
+func take_damage(damage: int) -> void:
+		if can_take_damage and not dead:
+			health -= damage
+			if health <= 0:
+				health = 0
+				health_bar.value = health
+				die()
+			health_bar.value = health
+
+
+func die() -> void:
+	dead = true
+	velocity = Vector2.ZERO
+	animations.play("death")
+	# this is where we'll show the UI for respawn and etc
+
+
 func _physics_process(delta: float) -> void:
+	if dead: return
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -38,7 +58,6 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-
-
+		
 	move_and_slide()
 	updateAnimation()

@@ -1,0 +1,149 @@
+[gd_scene load_steps=20 format=3 uid="uid://bg6re0ge1bbcc"]
+
+[ext_resource type="Script" path="res://src/Scripts/player.gd" id="1_3nm6x"]
+[ext_resource type="Texture2D" uid="uid://c78tmk8p4e0m4" path="res://Assets/SpriteSheets/SpaceManFirstDraft (1).png" id="2_0ae6i"]
+[ext_resource type="PackedScene" uid="uid://c65fuwgth81j7" path="res://src/Scenes/healthBar.tscn" id="3_4hcln"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvcd5"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(660, 1320, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1eplh"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(1320, 0, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwxos"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(1320, 1320, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vqyv"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(1980, 1320, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uc1ga"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(0, 1980, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgk7i"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(660, 1980, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5yyf"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(1320, 1980, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvnxe"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(1980, 1980, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3bor"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(1980, 0, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bce3v"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(0, 660, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8im2v"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(660, 660, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v60xb"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(1320, 660, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bsd2"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(1980, 660, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7roor"]
+atlas = ExtResource("2_0ae6i")
+region = Rect2(0, 1320, 660, 660)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_unw1y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvcd5")
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1eplh")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwxos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vqyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uc1ga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgk7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5yyf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvnxe")
+}],
+"loop": true,
+"name": &"move_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3bor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bce3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8im2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v60xb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bsd2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7roor")
+}],
+"loop": true,
+"name": &"move_right",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ai3s1"]
+size = Vector2(14.5, 23.5)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_3nm6x")
+speed = 100
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.04, 0.04)
+sprite_frames = SubResource("SpriteFrames_unw1y")
+animation = &"idle_left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.25, -0.25)
+shape = SubResource("RectangleShape2D_ai3s1")
+
+[node name="ProgressBar" parent="." instance=ExtResource("3_4hcln")]
+offset_left = -11.0
+offset_top = -23.0
+offset_right = 11.0
+offset_bottom = -16.0
+show_percentage = false
