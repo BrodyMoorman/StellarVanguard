@@ -13,6 +13,10 @@ var dead: bool
 var can_take_damage: bool = true
 var direction: String = "right"
 
+func _ready() -> void:
+	add_to_group("Player")
+
+
 func updateAnimation() -> void:
 	if velocity.length() == 0:
 		animations.play("idle_" + direction)

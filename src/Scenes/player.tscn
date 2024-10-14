@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://bg6re0ge1bbcc"]
 
-[ext_resource type="Script" path="res://src/Scripts/player.gd" id="1_3nm6x"]
+[ext_resource type="Script" path="res://src/Scripts/player/player.gd" id="1_3nm6x"]
 [ext_resource type="Texture2D" uid="uid://c78tmk8p4e0m4" path="res://Assets/SpriteSheets/SpaceManFirstDraft (1).png" id="2_0ae6i"]
 [ext_resource type="PackedScene" uid="uid://c65fuwgth81j7" path="res://src/Scenes/healthBar.tscn" id="3_4hcln"]
 
