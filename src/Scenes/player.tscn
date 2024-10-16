@@ -259,7 +259,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ai3s1"]
-size = Vector2(14.5, 23.5)
+size = Vector2(11, 21)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v2ily"]
 radius = 5.0
@@ -275,7 +275,7 @@ sprite_frames = SubResource("SpriteFrames_unw1y")
 animation = &"idle_right_crouch"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.25, -0.25)
+position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_ai3s1")
 
 [node name="ProgressBar" parent="." instance=ExtResource("3_4hcln")]
