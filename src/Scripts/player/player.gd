@@ -3,8 +3,10 @@ extends CharacterBody2D
 
 @export var speed: int = 300.0
 @export var jump_velocity: int = -400.0
+@export var crouch_multiplier: float = 0.5
 @onready var animations = $AnimatedSprite2D
 @onready var health_bar = $ProgressBar
+
 
 
 var health: float = 100
@@ -12,6 +14,8 @@ var max_health: float = 100
 var dead: bool
 var can_take_damage: bool = true
 var direction: String = "right"
+var speed_multiplier: float = 1.0
+var is_crouching: bool = false
 
 func _ready() -> void:
 	add_to_group("Player")
@@ -19,12 +23,19 @@ func _ready() -> void:
 
 func updateAnimation() -> void:
 	if velocity.length() == 0:
-		animations.play("idle_" + direction)
+		if is_crouching:
+			animations.play("idle_" + direction + "_crouch")
+		else:
+			animations.play("idle_" + direction)
 	else:
 		
 		if velocity.x < 0: direction = "left"
 		elif velocity.x > 0: direction = "right"
-		animations.play("move_" + direction)
+		
+		if is_crouching:
+			animations.play("move_" + direction + "_crouch")
+		else:
+			animations.play("move_" + direction)
 	
 
 func take_damage(damage: int) -> void:
@@ -57,9 +68,17 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
+	if Input.is_action_pressed("crouch"):
+		speed_multiplier = crouch_multiplier
+		is_crouching = true
+	if Input.is_action_just_released("crouch"):
+		speed_multiplier = 1.0
+		is_crouching = false
+		
+		
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
-		velocity.x = direction * speed
+		velocity.x = direction * speed* speed_multiplier
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		

@@ -1,42 +1,135 @@
-[gd_scene load_steps=6 format=3 uid="uid://c26e78jashk4w"]
+[gd_scene load_steps=17 format=3 uid="uid://c26e78jashk4w"]
 
 [ext_resource type="Script" path="res://src/Scripts/enemies/alien_enemy_1.gd" id="1_d3v74"]
-[ext_resource type="Texture2D" uid="uid://ca780dauw4dqw" path="res://Assets/SpriteSheets/enemy stand in until we get good art.png" id="1_x7suu"]
+[ext_resource type="Texture2D" uid="uid://y2p0ttmlf581" path="res://Assets/SpriteSheets/AlienGruntMovement.png" id="2_fukol"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bk1cc"]
+atlas = ExtResource("2_fukol")
+region = Rect2(0, 2560, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_el765"]
+atlas = ExtResource("2_fukol")
+region = Rect2(0, 0, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylyhn"]
+atlas = ExtResource("2_fukol")
+region = Rect2(0, 2560, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjakj"]
+atlas = ExtResource("2_fukol")
+region = Rect2(1280, 2560, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76va1"]
+atlas = ExtResource("2_fukol")
+region = Rect2(2560, 2560, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6mg2"]
+atlas = ExtResource("2_fukol")
+region = Rect2(0, 3840, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0muh"]
+atlas = ExtResource("2_fukol")
+region = Rect2(1280, 0, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bva1m"]
+atlas = ExtResource("2_fukol")
+region = Rect2(2560, 0, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6onw"]
+atlas = ExtResource("2_fukol")
+region = Rect2(0, 1280, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6ojw"]
+atlas = ExtResource("2_fukol")
+region = Rect2(1280, 1280, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2s0w"]
+atlas = ExtResource("2_fukol")
+region = Rect2(2560, 1280, 1280, 1280)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qynnv"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_x7suu")
+"texture": SubResource("AtlasTexture_bk1cc")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_el765")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylyhn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjakj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76va1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6mg2")
+}],
+"loop": true,
+"name": &"move_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0muh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bva1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6onw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6ojw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2s0w")
+}],
+"loop": true,
+"name": &"move_right",
 "speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d1i2m"]
+radius = 7.07107
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1m4my"]
-size = Vector2(54, 19)
+size = Vector2(54, 15.5)
 
 [node name="Alien_enemy_1" type="CharacterBody2D"]
 script = ExtResource("1_d3v74")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.0184375, 0.0184375)
 sprite_frames = SubResource("SpriteFrames_qynnv")
+animation = &"move_right"
+frame_progress = 0.311384
+speed_scale = 2.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(-8, -9)
-target_position = Vector2(0, 16)
+target_position = Vector2(0, 17)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, -6)
 shape = SubResource("CircleShape2D_d1i2m")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(3, -6.5)
+position = Vector2(0, -1.75)
 shape = SubResource("RectangleShape2D_1m4my")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

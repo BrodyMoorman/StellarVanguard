@@ -600,5 +600,5 @@ player = NodePath("../Player")
 [node name="Player" parent="." instance=ExtResource("4_ih414")]
 
 [node name="Alien_enemy_1" parent="." instance=ExtResource("7_cyxsc")]
-position = Vector2(93, -107)
+position = Vector2(76, 37)
 scale = Vector2(1.5, 1.5)

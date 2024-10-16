@@ -15,11 +15,22 @@ var is_chasing: bool = false
 var player = null
 var facing_right: bool = false 
 var can_attack: bool = true
+var direction: String = "right"
+
 
 @onready var raycast = $RayCast2D
 @onready var attack_area = $Area2D
+@onready var  animations = $AnimatedSprite2D
 #@onready var animation_player = 
 
+func updateAnimation() -> void:
+	if velocity.length() == 0:
+		animations.play("idle_" + direction)
+	else:
+		
+		if facing_right: animations.play("move_right")
+		else: animations.play("move_left")
+		
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -30,6 +41,7 @@ func _physics_process(delta: float) -> void:
 		patrol()
 
 	move_and_slide()
+	animations.play("move_left")
 
 
 func patrol() -> void:
@@ -69,7 +81,9 @@ func perform_attack() -> void:
 	can_attack = true
 	
 
+
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	print("Somethings Here")
 	if area.get_parent().is_in_group("Player"):
 		print("Player detected")
 		is_chasing = true
