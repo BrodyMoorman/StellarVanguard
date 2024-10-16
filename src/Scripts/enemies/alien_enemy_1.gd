@@ -6,7 +6,7 @@ const JUMP_VELOCITY = -400.0
 @export var patrol_speed: int = 30
 @export var chase_speed: int = 100
 
-@export var detection_range: float = 100
+@export var detection_range: float = 50
 @export var attack_range: float = 30
 @export var attack_damage: int = 10
 @export var attack_cooldown: float = 2  # Time between attacks
@@ -56,6 +56,7 @@ func patrol() -> void:
 
 
 func chase_player() -> void:
+	#todo: Make sure it flips direction at walls or can jump, as necessary
 	if player:
 		var direction_to_player = sign(player.position.x - position.x)
 		velocity.x = direction_to_player * chase_speed
