@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bg6re0ge1bbcc"]
+[gd_scene load_steps=41 format=3 uid="uid://bg6re0ge1bbcc"]
 
 [ext_resource type="Script" path="res://src/Scripts/player/player.gd" id="1_3nm6x"]
 [ext_resource type="Texture2D" uid="uid://c78tmk8p4e0m4" path="res://Assets/SpriteSheets/SpaceManFirstDraft (1).png" id="2_0ae6i"]
@@ -261,20 +261,31 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ai3s1"]
 size = Vector2(11, 21)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v2ily"]
-radius = 5.0
-height = 20.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1g82"]
+size = Vector2(13, 22)
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rupru"]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_otduf"]
+blend_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iofau"]
+radius = 8.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 1
+collision_layer = 2
 script = ExtResource("1_3nm6x")
 speed = 100
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 8
 scale = Vector2(0.04, 0.04)
 sprite_frames = SubResource("SpriteFrames_unw1y")
 animation = &"idle_right_crouch"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_ai3s1")
 
@@ -285,7 +296,19 @@ offset_right = 11.0
 offset_bottom = -16.0
 show_percentage = false
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="NearCollision" type="Area2D" parent="."]
+collision_layer = 130
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CapsuleShape2D_v2ily")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NearCollision"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_p1g82")
+debug_color = Color(0.85527, 0.118651, 0.839697, 0.42)
+
+[node name="SoundCollision" type="Area2D" parent="."]
+z_index = 2
+material = SubResource("CanvasItemMaterial_rupru")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoundCollision"]
+material = SubResource("CanvasItemMaterial_otduf")
+shape = SubResource("CircleShape2D_iofau")

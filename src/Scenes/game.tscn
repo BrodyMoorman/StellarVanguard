@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://bxt7p50pek54g"]
+[gd_scene load_steps=10 format=4 uid="uid://bxt7p50pek54g"]
 
 [ext_resource type="Texture2D" uid="uid://bnkhldha0eae" path="res://Assets/Tiles/Castle Platformer/twilight-tiles.png" id="1_rvudh"]
 [ext_resource type="Texture2D" uid="uid://cdwey64rba585" path="res://Assets/Tiles/Castle Platformer/twilight-tiles2.png" id="2_s7qvv"]
 [ext_resource type="Script" path="res://src/Scripts/player/camera.gd" id="3_bb8g2"]
 [ext_resource type="PackedScene" uid="uid://bg6re0ge1bbcc" path="res://src/Scenes/player.tscn" id="4_ih414"]
+[ext_resource type="PackedScene" uid="uid://0smlbyfr7r78" path="res://src/Scenes/vent.tscn" id="6_q1ry8"]
 [ext_resource type="PackedScene" uid="uid://c26e78jashk4w" path="res://src/Scenes/alien_enemy_1.tscn" id="7_cyxsc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p6q7m"]
@@ -598,8 +599,10 @@ script = ExtResource("3_bb8g2")
 player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("4_ih414")]
-position = Vector2(0, 37)
+position = Vector2(40, 37)
 
 [node name="Alien_enemy_1" parent="." instance=ExtResource("7_cyxsc")]
-position = Vector2(226, -139)
+position = Vector2(208, -138)
 scale = Vector2(1.5, 1.5)
+
+[node name="Vent" parent="." instance=ExtResource("6_q1ry8")]

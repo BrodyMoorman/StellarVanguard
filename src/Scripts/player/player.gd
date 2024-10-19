@@ -4,9 +4,17 @@ extends CharacterBody2D
 @export var speed: int = 300.0
 @export var jump_velocity: int = -400.0
 @export var crouch_multiplier: float = 0.5
+@export_group("Sound Radius Generation")
+@export var walking_sound_radius: float = 80.0
+@export var crouching_sound_radius: float = 20.0
+@export var fall_landing_radius_factor: float  = 0.2
+@export var max_landing_radius: float = 300.0
+@export var min_landing_radius: float = 1.0
 @onready var animations = $AnimatedSprite2D
 @onready var health_bar = $ProgressBar
+@onready var sound_area = $SoundCollision/CollisionShape2D
 
+signal interact
 
 
 var health: float = 100
@@ -16,6 +24,9 @@ var can_take_damage: bool = true
 var direction: String = "right"
 var speed_multiplier: float = 1.0
 var is_crouching: bool = false
+var was_falling: bool = false
+var falling_speed: float
+
 
 func _ready() -> void:
 	add_to_group("Player")
@@ -61,7 +72,10 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		was_falling = true
+		falling_speed = velocity.y
 
+	
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
@@ -75,12 +89,23 @@ func _physics_process(delta: float) -> void:
 		speed_multiplier = 1.0
 		is_crouching = false
 		
+	if Input.is_action_just_pressed("interact"):
+		interact.emit()
+		
 		
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = direction * speed* speed_multiplier
+		if(is_crouching):
+			sound_area.shape.set_radius(crouching_sound_radius)
+		else:
+			sound_area.shape.set_radius(walking_sound_radius)
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-		
+		sound_area.shape.set_radius(8)
+	if (was_falling && is_on_floor()):
+		sound_area.shape.set_radius(clamp((falling_speed* fall_landing_radius_factor),min_landing_radius,max_landing_radius))
+		was_falling= false
+		falling_speed = 0.0
 	move_and_slide()
 	updateAnimation()
