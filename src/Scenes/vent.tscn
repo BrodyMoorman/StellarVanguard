@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://0smlbyfr7r78"]
+
+[ext_resource type="Texture2D" uid="uid://c2unesmuvvhca" path="res://Assets/SpriteSheets/Vent-1.png.png" id="1_5slwo"]
+[ext_resource type="Script" path="res://src/Scripts/extra/vent.gd" id="1_bo1fx"]
+[ext_resource type="Texture2D" uid="uid://dc0ot3q1cv4bf" path="res://Assets/SpriteSheets/Vent-2.png.png" id="2_el2ul"]
+[ext_resource type="Shader" path="res://src/Shaders/ventHighlight.gdshader" id="4_wgx02"]
+[ext_resource type="PackedScene" uid="uid://d4a4dps0qsi5y" path="res://src/interaction/interactionArea/interactionArea.tscn" id="5_e2roj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ojv8c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5slwo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_el2ul")
+}],
+"loop": true,
+"name": &"in_vent",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lw8w0"]
+shader = ExtResource("4_wgx02")
+
+[sub_resource type="BoxMesh" id="BoxMesh_3u02t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wjqb8"]
+size = Vector2(26.6667, 20)
+
+[node name="Vent" type="Node2D"]
+position = Vector2(-62, 37)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_bo1fx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.0232323, 0.0232323)
+sprite_frames = SubResource("SpriteFrames_ojv8c")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+z_index = -1
+material = SubResource("ShaderMaterial_lw8w0")
+scale = Vector2(15.88, 15.88)
+mesh = SubResource("BoxMesh_3u02t")
+
+[node name="InteractionArea" parent="." instance=ExtResource("5_e2roj")]
+action_name = "enter"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(7.62939e-06, 0)
+shape = SubResource("RectangleShape2D_wjqb8")
