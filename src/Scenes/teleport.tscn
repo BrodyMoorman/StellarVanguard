@@ -58,6 +58,7 @@ resource_local_to_scene = true
 size = Vector2(19, 47)
 
 [node name="Teleport" type="Area2D"]
+collision_mask = 3
 script = ExtResource("1_2oy3m")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -551,6 +551,7 @@ tile_set = SubResource("TileSet_d02vp")
 
 [node name="EndOfFirstRoom" type="Area2D" parent="."]
 position = Vector2(814, -68)
+collision_mask = 3
 script = ExtResource("5_n2bnf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EndOfFirstRoom"]
@@ -569,6 +570,7 @@ position = Vector2(1731, 518)
 
 [node name="FallingFromIntroParkour" type="Area2D" parent="."]
 position = Vector2(645, -52)
+collision_mask = 3
 script = ExtResource("5_n2bnf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="FallingFromIntroParkour"]
@@ -591,6 +593,7 @@ scale = Vector2(1.75, 1.75)
 
 [node name="EndOfSecondRoom" type="Area2D" parent="."]
 position = Vector2(4552, 445)
+collision_mask = 3
 script = ExtResource("5_n2bnf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EndOfSecondRoom"]
