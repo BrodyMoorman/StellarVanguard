@@ -271,7 +271,7 @@ blend_mode = 1
 blend_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iofau"]
-radius = 8.0
+radius = 7.07107
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1

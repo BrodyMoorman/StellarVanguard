@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://0smlbyfr7r78"]
+[gd_scene load_steps=10 format=3 uid="uid://brsl2rjtf7k7g"]
 
 [ext_resource type="Texture2D" uid="uid://c2unesmuvvhca" path="res://Assets/SpriteSheets/Vent-1.png.png" id="1_5slwo"]
 [ext_resource type="Script" path="res://src/Scripts/extra/vent.gd" id="1_bo1fx"]
