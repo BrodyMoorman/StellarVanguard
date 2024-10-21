@@ -113,7 +113,9 @@ size = Vector2(53, 9.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vt84a"]
 size = Vector2(4.5, 3)
 
-[node name="Alien_enemy_1" type="CharacterBody2D"]
+[node name="Alien_enemy_1" type="CharacterBody2D" groups=["damageable"]]
+collision_layer = 16385
+collision_mask = 16385
 script = ExtResource("1_d3v74")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -144,5 +146,14 @@ shape = SubResource("RectangleShape2D_1m4my")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
 position = Vector2(9, 2)
 shape = SubResource("RectangleShape2D_vt84a")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 16384
+collision_mask = 16384
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 2.5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ebv2k")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
