@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://dnqd1m0fa1wdd"]
+[gd_scene load_steps=39 format=4 uid="uid://dnqd1m0fa1wdd"]
 
 [ext_resource type="Texture2D" uid="uid://cyqfiydc0grwu" path="res://Assets/Tiles/Science Lab/level_tileset.png" id="1_hsjnq"]
 [ext_resource type="PackedScene" uid="uid://bg6re0ge1bbcc" path="res://src/Scenes/player.tscn" id="2_d3aij"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://dbsofe15wttki" path="res://Assets/Sprites/Portal/Dimensional_Portal.png" id="5_uk2qt"]
 [ext_resource type="PackedScene" uid="uid://brsl2rjtf7k7g" path="res://src/Scenes/vent.tscn" id="7_pfgk1"]
 [ext_resource type="PackedScene" uid="uid://c26e78jashk4w" path="res://src/Scenes/alien_enemy_1.tscn" id="7_yt5vm"]
-[ext_resource type="Script" path="res://src/Scripts/popup_text.gd" id="8_4b44r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rlhlh"]
 texture = ExtResource("1_hsjnq")
@@ -528,70 +527,6 @@ animations = [{
 resource_local_to_scene = true
 size = Vector2(12, 45)
 
-[sub_resource type="Animation" id="Animation_yuk7f"]
-resource_name = "text"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:visible_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.0]
-}
-
-[sub_resource type="Animation" id="Animation_hff0i"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:visible_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ck2m0"]
-_data = {
-"RESET": SubResource("Animation_hff0i"),
-"text": SubResource("Animation_yuk7f")
-}
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rsmem"]
-resource_local_to_scene = true
-size = Vector2(25, 88)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_btfll"]
-resource_local_to_scene = true
-size = Vector2(99, 70)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf57h"]
-resource_local_to_scene = true
-size = Vector2(207, 53)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x6k50"]
-resource_local_to_scene = true
-size = Vector2(262, 76)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3jymt"]
-resource_local_to_scene = true
-size = Vector2(256, 173)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ke8mn"]
-resource_local_to_scene = true
-size = Vector2(251.5, 71.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tnd8m"]
-resource_local_to_scene = true
-size = Vector2(32, 66)
-
 [node name="Tutorial" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("2_d3aij")]
@@ -674,192 +609,11 @@ position = Vector2(456, 9)
 shape = SubResource("RectangleShape2D_vwvp2")
 
 [node name="Destination" type="Marker2D" parent="EndOfSecondRoom"]
-position = Vector2(514, 2)
+position = Vector2(302, -51)
 
 [node name="Vent" parent="." instance=ExtResource("7_pfgk1")]
 position = Vector2(4437, 443)
 
-[node name="JumpingTutorial" type="Area2D" parent="."]
-position = Vector2(194, -229)
-collision_mask = 3
-script = ExtResource("8_4b44r")
-
-[node name="Label" type="Label" parent="JumpingTutorial"]
-offset_left = 138.0
-offset_top = 60.0
-offset_right = 243.0
-offset_bottom = 101.0
-text = "Press the spacebar to
-jump across the ledges."
-visible_characters = 0
-visible_ratio = 0.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="JumpingTutorial"]
-libraries = {
-"": SubResource("AnimationLibrary_ck2m0")
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpingTutorial"]
-position = Vector2(13.5, 152)
-shape = SubResource("RectangleShape2D_rsmem")
-
-[node name="MovingTutorial" type="Area2D" parent="."]
-position = Vector2(54, -41)
-collision_mask = 3
-script = ExtResource("8_4b44r")
-
-[node name="Label" type="Label" parent="MovingTutorial"]
-offset_left = -78.0
-offset_top = -122.0
-offset_right = 42.0
-offset_bottom = -50.0
-text = "Welcome. Use the W,
-A, S, and D keys to 
-move around the level."
-visible_characters = 0
-visible_ratio = 0.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MovingTutorial"]
-libraries = {
-"": SubResource("AnimationLibrary_ck2m0")
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MovingTutorial"]
-position = Vector2(-38.5, 45)
-shape = SubResource("RectangleShape2D_btfll")
-
-[node name="TeleportTutorial" type="Area2D" parent="."]
-position = Vector2(941, -222)
-collision_mask = 3
-script = ExtResource("8_4b44r")
-
-[node name="Label" type="Label" parent="TeleportTutorial"]
-offset_left = -132.0
-offset_top = 66.0
-offset_right = -9.0
-offset_bottom = 115.0
-text = "Walk through the teleporter
-to continue with the tutorial."
-visible_characters = 0
-visible_ratio = 0.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TeleportTutorial"]
-libraries = {
-"": SubResource("AnimationLibrary_ck2m0")
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportTutorial"]
-position = Vector2(-89.5, 164.5)
-shape = SubResource("RectangleShape2D_yf57h")
-
-[node name="EnemyTutorial1" type="Area2D" parent="."]
-position = Vector2(2910, 294)
-collision_mask = 3
-script = ExtResource("8_4b44r")
-
-[node name="Label" type="Label" parent="EnemyTutorial1"]
-offset_left = -180.0
-offset_top = 35.0
-offset_right = 19.0
-offset_bottom = 84.0
-text = "Watch out for enemies!
-You can either try to move
-around them or defeat them."
-visible_characters = 0
-visible_ratio = 0.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="EnemyTutorial1"]
-libraries = {
-"": SubResource("AnimationLibrary_ck2m0")
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyTutorial1"]
-position = Vector2(-135, 148)
-shape = SubResource("RectangleShape2D_x6k50")
-
-[node name="EnemyTutorial2" type="Area2D" parent="."]
-position = Vector2(3244, 395)
-collision_mask = 3
-script = ExtResource("8_4b44r")
-
-[node name="Label" type="Label" parent="EnemyTutorial2"]
-offset_left = -91.0
-offset_top = -64.0
-offset_right = 118.0
-offset_bottom = 8.0
-text = "Enemies can only detect you
-if you make too much noise
-near them. The amount of noise
-you make is indicated by the circle
-around you."
-visible_characters = 0
-visible_ratio = 0.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="EnemyTutorial2"]
-libraries = {
-"": SubResource("AnimationLibrary_ck2m0")
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyTutorial2"]
-position = Vector2(-79, 94.5)
-shape = SubResource("RectangleShape2D_3jymt")
-
-[node name="VentTutorial" type="Area2D" parent="."]
-position = Vector2(4283, 376)
-collision_mask = 3
-script = ExtResource("8_4b44r")
-
-[node name="Label" type="Label" parent="VentTutorial"]
-offset_left = -74.0
-offset_top = -19.0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "You can hide from enemies
-by entering these vents."
-visible_characters = 0
-visible_ratio = 0.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="VentTutorial"]
-libraries = {
-"": SubResource("AnimationLibrary_ck2m0")
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VentTutorial"]
-position = Vector2(-59.25, 91.75)
-shape = SubResource("RectangleShape2D_ke8mn")
-
-[node name="FinalTutorial" type="Area2D" parent="."]
-position = Vector2(4843, 380)
-collision_mask = 3
-script = ExtResource("8_4b44r")
-
-[node name="Label" type="Label" parent="FinalTutorial"]
-offset_left = 17.0
-offset_top = -61.0
-offset_right = 190.0
-offset_bottom = -4.0
-text = "Your introduction is now 
-complete. Take this teleporter 
-to depart to your first mission."
-visible_characters = 0
-visible_ratio = 0.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="FinalTutorial"]
-libraries = {
-"": SubResource("AnimationLibrary_ck2m0")
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FinalTutorial"]
-position = Vector2(6, 67)
-shape = SubResource("RectangleShape2D_tnd8m")
-
 [connection signal="body_entered" from="EndOfFirstRoom" to="EndOfFirstRoom" method="_on_body_entered"]
 [connection signal="body_entered" from="FallingFromIntroParkour" to="FallingFromIntroParkour" method="_on_body_entered"]
 [connection signal="body_entered" from="EndOfSecondRoom" to="EndOfSecondRoom" method="_on_body_entered"]
-[connection signal="body_entered" from="JumpingTutorial" to="JumpingTutorial" method="_on_body_entered"]
-[connection signal="body_entered" from="MovingTutorial" to="MovingTutorial" method="_on_body_entered"]
-[connection signal="body_entered" from="TeleportTutorial" to="TeleportTutorial" method="_on_body_entered"]
-[connection signal="body_entered" from="EnemyTutorial1" to="EnemyTutorial1" method="_on_body_entered"]
-[connection signal="body_entered" from="EnemyTutorial2" to="EnemyTutorial2" method="_on_body_entered"]
-[connection signal="body_entered" from="VentTutorial" to="VentTutorial" method="_on_body_entered"]
-[connection signal="body_entered" from="FinalTutorial" to="FinalTutorial" method="_on_body_entered"]
