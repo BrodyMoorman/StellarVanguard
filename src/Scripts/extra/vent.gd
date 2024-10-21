@@ -16,7 +16,11 @@ func _process(delta: float) -> void:
 func _on_interact():
 	print("Player Interacting")
 	if(animations.animation == "default"):
+		player.hide_player()
 		animations.play("in_vent")
+		interaction_area.action_name = "exit"
 	else:
 		animations.play("default")
+		player.unhide_player()
+		interaction_area.action_name = "enter"
 	
