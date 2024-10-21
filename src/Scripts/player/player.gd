@@ -13,6 +13,7 @@ extends CharacterBody2D
 @onready var animations = $AnimatedSprite2D
 @onready var health_bar = $ProgressBar
 @onready var sound_area = $SoundCollision/CollisionShape2D
+@onready var animation_tree: AnimationTree = $AnimationTree
 
 signal interact
 
@@ -26,13 +27,18 @@ var speed_multiplier: float = 1.0
 var is_crouching: bool = false
 var was_falling: bool = false
 var falling_speed: float
+var is_attacking: bool = false
+var in_animation:  bool = false
 
 
 func _ready() -> void:
 	add_to_group("Player")
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 
 func updateAnimation() -> void:
+	if(is_attacking):
+		pass
 	if velocity.length() == 0:
 		if is_crouching:
 			animations.play("idle_" + direction + "_crouch")
@@ -65,6 +71,14 @@ func die() -> void:
 	animations.play("death")
 	# this is where we'll show the UI for respawn and etc
 
+func attack() -> void:
+	is_attacking = true
+	in_animation = true
+	while(in_animation):
+		animations.play("attack_"+direction)
+	is_attacking= false
+	
+
 
 func _physics_process(delta: float) -> void:
 	if dead: return
@@ -91,6 +105,9 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("interact"):
 		interact.emit()
+	if Input.is_action_pressed("attack"):
+		attack()
+		
 		
 		
 	var direction := Input.get_axis("move_left", "move_right")
@@ -108,4 +125,9 @@ func _physics_process(delta: float) -> void:
 		was_falling= false
 		falling_speed = 0.0
 	move_and_slide()
-	updateAnimation()
+	
+	
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	in_animation = false

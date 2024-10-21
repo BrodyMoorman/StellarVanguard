@@ -1,0 +1,14 @@
+[gd_resource type="AnimationNodeBlendSpace1D" load_steps=3 format=3 uid="uid://d1bqn0cades11"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0ha32"]
+animation = &"attack_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0f727"]
+animation = &"attack_right"
+
+[resource]
+blend_point_0/node = SubResource("AnimationNodeAnimation_0ha32")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_0f727")
+blend_point_1/pos = 1.0
+blend_mode = 1
