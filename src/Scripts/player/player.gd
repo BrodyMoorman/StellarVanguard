@@ -14,6 +14,11 @@ extends CharacterBody2D
 @onready var health_bar = $ProgressBar
 @onready var sound_area = $SoundCollision/CollisionShape2D
 @onready var animation_tree: AnimationTree = $AnimationTree
+@onready var noise_visualization: Control = $NoiseVisualization
+@onready var left_attack_box: Area2D = $left_attack_box
+@onready var left_attack_shape: CollisionShape2D = $left_attack_box/CollisionShape2D
+@onready var right_attack_box: Area2D = $right_attack_box
+@onready var right_attack_shape: CollisionShape2D = $right_attack_box/CollisionShape2D
 
 signal interact
 
@@ -27,33 +32,34 @@ var speed_multiplier: float = 1.0
 var is_crouching: bool = false
 var was_falling: bool = false
 var falling_speed: float
+
 var is_attacking: bool = false
 var in_animation:  bool = false
+var last_direction = 1
+
 
 
 func _ready() -> void:
 	add_to_group("Player")
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-
+	
+	
 
 func updateAnimation() -> void:
-	if(is_attacking):
-		pass
-	if velocity.length() == 0:
-		if is_crouching:
-			animations.play("idle_" + direction + "_crouch")
-		else:
-			animations.play("idle_" + direction)
-	else:
-		
-		if velocity.x < 0: direction = "left"
-		elif velocity.x > 0: direction = "right"
-		
-		if is_crouching:
-			animations.play("move_" + direction + "_crouch")
-		else:
-			animations.play("move_" + direction)
+	var idle = !velocity.x
+	animation_tree.set("parameters/conditions/Attacking", is_attacking)
+	animation_tree.set("parameters/conditions/Idle", (idle && !is_crouching))
+	animation_tree.set("parameters/conditions/Walk", (!idle && !is_crouching))
+	animation_tree.set("parameters/conditions/CrouchIdle", (idle && is_crouching))
+	animation_tree.set("parameters/conditions/CrouchWalk", (!idle && is_crouching))
+
 	
+	animation_tree.set("parameters/Attack/blend_position", last_direction)
+	animation_tree.set("parameters/CrouchIdle/blend_position", last_direction)
+	animation_tree.set("parameters/CrouchWalking/blend_position", last_direction)
+	animation_tree.set("parameters/Idle/blend_position", last_direction)
+	animation_tree.set("parameters/Walk/blend_position", last_direction)
+	var normalized
 
 func take_damage(damage: int) -> void:
 		if can_take_damage and not dead:
@@ -71,13 +77,9 @@ func die() -> void:
 	animations.play("death")
 	# this is where we'll show the UI for respawn and etc
 
+
 func attack() -> void:
 	is_attacking = true
-	in_animation = true
-	while(in_animation):
-		animations.play("attack_"+direction)
-	is_attacking= false
-	
 
 
 func _physics_process(delta: float) -> void:
@@ -105,13 +107,15 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("interact"):
 		interact.emit()
-	if Input.is_action_pressed("attack"):
+
+	if Input.is_action_just_pressed("attack"):
 		attack()
 		
 		
 		
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
+		last_direction = direction
 		velocity.x = direction * speed* speed_multiplier
 		if(is_crouching):
 			sound_area.shape.set_radius(crouching_sound_radius)
@@ -119,15 +123,43 @@ func _physics_process(delta: float) -> void:
 			sound_area.shape.set_radius(walking_sound_radius)
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-		sound_area.shape.set_radius(8)
+		sound_area.shape.set_radius(move_toward(sound_area.shape.radius, 8, 5))
 	if (was_falling && is_on_floor()):
 		sound_area.shape.set_radius(clamp((falling_speed* fall_landing_radius_factor),min_landing_radius,max_landing_radius))
 		was_falling= false
 		falling_speed = 0.0
+	noise_visualization.set_radius(sound_area.shape.radius)
 	move_and_slide()
+	updateAnimation()
+
 	
 	
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	in_animation = false
+
+
+func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
+	if(anim_name == "attack_left" || anim_name =="attack_right"):
+		is_attacking = false
+		right_attack_shape.disabled = true
+		left_attack_shape.disabled = true
+
+
+func _on_animation_tree_animation_started(anim_name: StringName) -> void:
+	if(anim_name == "attack_left"):
+		left_attack_shape.disabled = false
+	if(anim_name=="attack_right"):
+		right_attack_shape.disabled = false
+		
+
+
+func _on_right_attack_box_area_entered(area: Area2D) -> void:
+	if(area.get_parent().is_in_group("damageable")):
+		area.get_parent().take_damage()
+
+
+func _on_left_attack_box_area_entered(area: Area2D) -> void:
+	if(area.get_parent().is_in_group("damageable")):
+		area.get_parent().take_damage()

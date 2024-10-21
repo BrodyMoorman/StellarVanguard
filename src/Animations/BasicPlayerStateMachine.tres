@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=18 format=3 uid="uid://bc3hxmfn0iofo"]
+[gd_resource type="AnimationNodeStateMachine" load_steps=20 format=3 uid="uid://bc3hxmfn0iofo"]
 
 [ext_resource type="AnimationNodeBlendSpace1D" uid="uid://d1bqn0cades11" path="res://src/Animations/attack_blend_space_1d.tres" id="1_o7kmt"]
 [ext_resource type="AnimationNodeBlendSpace1D" uid="uid://d4i10i6rkqcop" path="res://src/Animations/idle_crouch_blend_space_1d.tres" id="2_6hkl0"]
@@ -31,40 +31,47 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jkskq"]
 advance_mode = 2
-advance_condition = &"Crouching"
+advance_condition = &"CrouchWalk"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qyiv7"]
 advance_mode = 2
-advance_condition = &"Crouching"
+advance_condition = &"CrouchIdle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nhv0x"]
 advance_mode = 2
-advance_expression = "Idle"
+advance_condition = &"CrouchIdle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u6k1g"]
 advance_mode = 2
-advance_expression = "!Crouching"
+advance_condition = &"Idle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bnfx2"]
 advance_mode = 2
-advance_expression = "Walk"
+advance_condition = &"CrouchWalk"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8mi0l"]
 advance_mode = 2
 advance_condition = &"Walk"
-advance_expression = "!Crouching"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dbq8j"]
+advance_mode = 2
+advance_condition = &"Attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bnyst"]
+advance_mode = 2
+advance_condition = &"Attacking"
 
 [resource]
 states/Attack/node = ExtResource("1_o7kmt")
-states/Attack/position = Vector2(454, -59)
+states/Attack/position = Vector2(551, -119)
 states/CrouchIdle/node = ExtResource("2_6hkl0")
 states/CrouchIdle/position = Vector2(619, 175)
 states/CrouchWalking/node = ExtResource("3_bp5fn")
 states/CrouchWalking/position = Vector2(394, 175)
 states/Idle/node = ExtResource("4_ojkrx")
-states/Idle/position = Vector2(526, 58)
+states/Idle/position = Vector2(414, 33)
 states/Start/position = Vector2(112, 48)
 states/Walk/node = ExtResource("5_vikvn")
 states/Walk/position = Vector2(243, 48)
-transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_im2rl"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_pv7a5"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_1kgg1"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_j2fdt"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_gkhaj"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_bwsy0"), "Walk", "CrouchWalking", SubResource("AnimationNodeStateMachineTransition_jkskq"), "Idle", "CrouchIdle", SubResource("AnimationNodeStateMachineTransition_qyiv7"), "CrouchWalking", "CrouchIdle", SubResource("AnimationNodeStateMachineTransition_nhv0x"), "CrouchIdle", "Idle", SubResource("AnimationNodeStateMachineTransition_u6k1g"), "CrouchIdle", "CrouchWalking", SubResource("AnimationNodeStateMachineTransition_bnfx2"), "CrouchWalking", "Walk", SubResource("AnimationNodeStateMachineTransition_8mi0l")]
-graph_offset = Vector2(-60, -56)
+transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_im2rl"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_pv7a5"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_1kgg1"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_j2fdt"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_gkhaj"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_bwsy0"), "Walk", "CrouchWalking", SubResource("AnimationNodeStateMachineTransition_jkskq"), "Idle", "CrouchIdle", SubResource("AnimationNodeStateMachineTransition_qyiv7"), "CrouchWalking", "CrouchIdle", SubResource("AnimationNodeStateMachineTransition_nhv0x"), "CrouchIdle", "Idle", SubResource("AnimationNodeStateMachineTransition_u6k1g"), "CrouchIdle", "CrouchWalking", SubResource("AnimationNodeStateMachineTransition_bnfx2"), "CrouchWalking", "Walk", SubResource("AnimationNodeStateMachineTransition_8mi0l"), "CrouchIdle", "Attack", SubResource("AnimationNodeStateMachineTransition_dbq8j"), "CrouchWalking", "Attack", SubResource("AnimationNodeStateMachineTransition_bnyst")]
+graph_offset = Vector2(-68, -257)
