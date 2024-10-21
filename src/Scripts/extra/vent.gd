@@ -23,4 +23,3 @@ func _on_interact():
 		animations.play("default")
 		player.unhide_player()
 		interaction_area.action_name = "enter"
-	
