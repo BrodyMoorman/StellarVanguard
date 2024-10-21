@@ -71,10 +71,14 @@ func chase_player() -> void:
 		var direction_to_player = sign(player.position.x - position.x)
 		velocity.x = direction_to_player * chase_speed
 		
+		var prev_face = facing_right
 		if direction_to_player > 0:
 			facing_right = true
 		else:
 			facing_right = false
+		
+		if prev_face != facing_right:
+			scale.x = -scale.x
 			
 		if global_position.distance_to(player.global_position) <= attack_range and can_attack:
 			perform_attack()
