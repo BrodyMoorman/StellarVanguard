@@ -6,13 +6,12 @@ const JUMP_VELOCITY = -400.0
 @export var patrol_speed: int = 30
 @export var chase_speed: int = 100
 @export var starting_health: int = 100
-
 @export var detection_range: float = 50
 @export var attack_range: float = 30
 @export var attack_damage: int = 10
 @export var attack_cooldown: float = 2  # Time between attacks
 
-var health:int = starting_health
+var health: int = starting_health
 var is_chasing: bool = false
 var player = null
 var facing_right: bool = false 
@@ -37,7 +36,6 @@ func updateAnimation() -> void:
 func _physics_process(delta: float) -> void:
 	if(health <= 0):
 		die()
-		
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	if is_chasing and player:
@@ -54,6 +52,7 @@ func take_damage():
 func die():
 	print("Enemy killed")
 	queue_free()  # This will despawn the enemy
+
 
 func patrol() -> void:
 	if not raycast.is_colliding() and is_on_floor():

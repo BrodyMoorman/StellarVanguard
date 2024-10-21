@@ -1,15 +1,44 @@
-<<<<<<< Updated upstream
-[gd_scene load_steps=41 format=3 uid="uid://bg6re0ge1bbcc"]
-=======
-[gd_scene load_steps=65 format=3 uid="uid://bg6re0ge1bbcc"]
->>>>>>> Stashed changes
+[gd_scene load_steps=66 format=3 uid="uid://bg6re0ge1bbcc"]
 
 [ext_resource type="Script" path="res://src/Scripts/player/player.gd" id="1_3nm6x"]
 [ext_resource type="Texture2D" uid="uid://c78tmk8p4e0m4" path="res://Assets/SpriteSheets/SpaceManFirstDraft (1).png" id="2_0ae6i"]
+[ext_resource type="Texture2D" uid="uid://iwgd2g1rg153" path="res://Assets/SpriteSheets/SpaceManAttackBiDirectional.png" id="2_5quvk"]
 [ext_resource type="Texture2D" uid="uid://b7v402wvd6r6t" path="res://Assets/SpriteSheets/SpaceCrouching.png" id="3_4a5hu"]
 [ext_resource type="PackedScene" uid="uid://c65fuwgth81j7" path="res://src/Scenes/healthBar.tscn" id="3_4hcln"]
-[ext_resource type="AnimationNodeStateMachine" uid="uid://bc3hxmfn0iofo" path="res://src/Animations/BasicPlayerStateMachine.tres" id="6_3ocn2"]
-[ext_resource type="Script" path="res://src/Scenes/audioVis.gd" id="6_tcvpg"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://bc3hxmfn0iofo" path="res://src/Animations/BasicPlayerStateMachine.tres" id="6_1beuj"]
+[ext_resource type="Script" path="res://src/Scenes/noise_visualization.gd" id="7_bd4b5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bs7h8"]
+atlas = ExtResource("2_5quvk")
+region = Rect2(660, 660, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnj4h"]
+atlas = ExtResource("2_5quvk")
+region = Rect2(1320, 660, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocmgi"]
+atlas = ExtResource("2_5quvk")
+region = Rect2(0, 1320, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrjmg"]
+atlas = ExtResource("2_5quvk")
+region = Rect2(660, 1320, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22rxf"]
+atlas = ExtResource("2_5quvk")
+region = Rect2(0, 0, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f353u"]
+atlas = ExtResource("2_5quvk")
+region = Rect2(660, 0, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvc06"]
+atlas = ExtResource("2_5quvk")
+region = Rect2(1320, 0, 660, 660)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4u0i6"]
+atlas = ExtResource("2_5quvk")
+region = Rect2(0, 660, 660, 660)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gvcd5"]
 atlas = ExtResource("2_0ae6i")
@@ -133,6 +162,40 @@ region = Rect2(1320, 660, 660, 660)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_unw1y"]
 animations = [{
+"frames": [{
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_bs7h8")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_dnj4h")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_ocmgi")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_xrjmg")
+}],
+"loop": true,
+"name": &"attack_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_22rxf")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_f353u")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_fvc06")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_4u0i6")
+}],
+"loop": true,
+"name": &"attack_right",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gvcd5")
@@ -279,8 +342,6 @@ blend_mode = 1
 [sub_resource type="CircleShape2D" id="CircleShape2D_iofau"]
 radius = 7.07107
 
-<<<<<<< Updated upstream
-=======
 [sub_resource type="Animation" id="Animation_msrxj"]
 length = 0.001
 tracks/0/type = "value"
@@ -611,10 +672,12 @@ _data = {
 "walk_right": SubResource("Animation_gawwl")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_onnnc"]
-size = Vector2(9, 14)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v4kml"]
+size = Vector2(13, 20.5)
 
->>>>>>> Stashed changes
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nq8to"]
+size = Vector2(13.5, 21)
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
 collision_layer = 2
@@ -625,7 +688,7 @@ speed = 100
 light_mask = 8
 scale = Vector2(0.04, 0.04)
 sprite_frames = SubResource("SpriteFrames_unw1y")
-animation = &"idle_right_crouch"
+animation = &"idle_right"
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0.5)
@@ -648,21 +711,22 @@ shape = SubResource("RectangleShape2D_p1g82")
 debug_color = Color(0.85527, 0.118651, 0.839697, 0.42)
 
 [node name="SoundCollision" type="Area2D" parent="."]
-z_index = 2
+show_behind_parent = true
+z_index = 10
 material = SubResource("CanvasItemMaterial_rupru")
+use_parent_material = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoundCollision"]
+show_behind_parent = true
 material = SubResource("CanvasItemMaterial_otduf")
 shape = SubResource("CircleShape2D_iofau")
-<<<<<<< Updated upstream
-=======
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = ExtResource("6_3ocn2")
+tree_root = ExtResource("6_1beuj")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/Attacking = false
 parameters/conditions/CrouchIdle = false
-parameters/conditions/CrouchWalk = true
+parameters/conditions/CrouchWalk = false
 parameters/conditions/Idle = false
 parameters/conditions/Walk = false
 parameters/Attack/blend_position = 0
@@ -676,34 +740,33 @@ libraries = {
 "": SubResource("AnimationLibrary_ch2nj")
 }
 
+[node name="right_attack_box" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16384
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_attack_box"]
+position = Vector2(13, 0.25)
+shape = SubResource("RectangleShape2D_v4kml")
+disabled = true
+
+[node name="left_attack_box" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16384
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_attack_box"]
+position = Vector2(-14.25, 0.5)
+shape = SubResource("RectangleShape2D_nq8to")
+disabled = true
+
 [node name="NoiseVisualization" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("6_tcvpg")
-
-[node name="LeftAttackBox" type="Area2D" parent="."]
-collision_layer = 16384
-collision_mask = 16384
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftAttackBox"]
-position = Vector2(-12, 3)
-shape = SubResource("RectangleShape2D_onnnc")
-disabled = true
-
-[node name="RightAttackBox" type="Area2D" parent="."]
-collision_layer = 16384
-collision_mask = 16384
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightAttackBox"]
-position = Vector2(12, 3)
-shape = SubResource("RectangleShape2D_onnnc")
-disabled = true
+script = ExtResource("7_bd4b5")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="animation_started" from="AnimationTree" to="." method="_on_animation_tree_animation_started"]
-[connection signal="area_entered" from="LeftAttackBox" to="." method="_on_left_attack_box_area_entered"]
-[connection signal="area_entered" from="RightAttackBox" to="." method="_on_right_attack_box_area_entered"]
->>>>>>> Stashed changes
+[connection signal="area_entered" from="right_attack_box" to="." method="_on_right_attack_box_area_entered"]
+[connection signal="area_entered" from="left_attack_box" to="." method="_on_left_attack_box_area_entered"]

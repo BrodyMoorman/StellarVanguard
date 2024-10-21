@@ -9,6 +9,7 @@ var active_areas = []
 var can_interact = true
 
 func register_area(area: InteractionArea):
+	print("registering area:"+ area.to_string())
 	active_areas.push_back(area)
 	
 func unregister_area(area: InteractionArea):

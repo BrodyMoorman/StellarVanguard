@@ -13,19 +13,12 @@ extends CharacterBody2D
 @onready var animations = $AnimatedSprite2D
 @onready var health_bar = $ProgressBar
 @onready var sound_area = $SoundCollision/CollisionShape2D
-<<<<<<< Updated upstream
-=======
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var noise_visualization: Control = $NoiseVisualization
-@onready var left_attack_box: Area2D = $LeftAttackBox
-@onready var left_attack_shape: CollisionShape2D = $LeftAttackBox/CollisionShape2D
-@onready var right_attack_box: Area2D = $RightAttackBox
-@onready var right_attack_shape: CollisionShape2D = $RightAttackBox/CollisionShape2D
-
-
-
-
->>>>>>> Stashed changes
+@onready var left_attack_box: Area2D = $left_attack_box
+@onready var left_attack_shape: CollisionShape2D = $left_attack_box/CollisionShape2D
+@onready var right_attack_box: Area2D = $right_attack_box
+@onready var right_attack_shape: CollisionShape2D = $right_attack_box/CollisionShape2D
 
 signal interact
 
@@ -39,36 +32,15 @@ var speed_multiplier: float = 1.0
 var is_crouching: bool = false
 var was_falling: bool = false
 var falling_speed: float
-<<<<<<< Updated upstream
-=======
+
 var is_attacking: bool = false
 var in_animation:  bool = false
 var last_direction = 1
 
->>>>>>> Stashed changes
 
 
 func _ready() -> void:
 	add_to_group("Player")
-<<<<<<< Updated upstream
-
-
-func updateAnimation() -> void:
-	if velocity.length() == 0:
-		if is_crouching:
-			animations.play("idle_" + direction + "_crouch")
-		else:
-			animations.play("idle_" + direction)
-	else:
-		
-		if velocity.x < 0: direction = "left"
-		elif velocity.x > 0: direction = "right"
-		
-		if is_crouching:
-			animations.play("move_" + direction + "_crouch")
-		else:
-			animations.play("move_" + direction)
-=======
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
 	
@@ -80,7 +52,7 @@ func updateAnimation() -> void:
 	animation_tree.set("parameters/conditions/Walk", (!idle && !is_crouching))
 	animation_tree.set("parameters/conditions/CrouchIdle", (idle && is_crouching))
 	animation_tree.set("parameters/conditions/CrouchWalk", (!idle && is_crouching))
->>>>>>> Stashed changes
+
 	
 	animation_tree.set("parameters/Attack/blend_position", last_direction)
 	animation_tree.set("parameters/CrouchIdle/blend_position", last_direction)
@@ -105,15 +77,10 @@ func die() -> void:
 	animations.play("death")
 	# this is where we'll show the UI for respawn and etc
 
-<<<<<<< Updated upstream
-=======
+
 func attack() -> void:
 	is_attacking = true
 
-
-	
-
->>>>>>> Stashed changes
 
 func _physics_process(delta: float) -> void:
 	if dead: return
@@ -140,12 +107,10 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("interact"):
 		interact.emit()
-<<<<<<< Updated upstream
-=======
+
 	if Input.is_action_just_pressed("attack"):
 		attack()
 		
->>>>>>> Stashed changes
 		
 		
 	var direction := Input.get_axis("move_left", "move_right")
@@ -166,8 +131,7 @@ func _physics_process(delta: float) -> void:
 	noise_visualization.set_radius(sound_area.shape.radius)
 	move_and_slide()
 	updateAnimation()
-<<<<<<< Updated upstream
-=======
+
 	
 	
 
@@ -199,4 +163,3 @@ func _on_right_attack_box_area_entered(area: Area2D) -> void:
 func _on_left_attack_box_area_entered(area: Area2D) -> void:
 	if(area.get_parent().is_in_group("damageable")):
 		area.get_parent().take_damage()
->>>>>>> Stashed changes

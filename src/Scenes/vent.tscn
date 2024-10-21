@@ -35,7 +35,7 @@ size = Vector2(26.6667, 20)
 
 [node name="Vent" type="Node2D"]
 position = Vector2(-62, 37)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(2.42, 2.42)
 script = ExtResource("1_bo1fx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
