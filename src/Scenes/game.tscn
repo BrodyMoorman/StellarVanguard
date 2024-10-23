@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://bxt7p50pek54g"]
+[gd_scene load_steps=11 format=4 uid="uid://bxt7p50pek54g"]
 
 [ext_resource type="Texture2D" uid="uid://bnkhldha0eae" path="res://Assets/Tiles/Castle Platformer/twilight-tiles.png" id="1_rvudh"]
 [ext_resource type="Texture2D" uid="uid://cdwey64rba585" path="res://Assets/Tiles/Castle Platformer/twilight-tiles2.png" id="2_s7qvv"]
 [ext_resource type="Script" path="res://src/Scripts/player/camera.gd" id="3_bb8g2"]
 [ext_resource type="PackedScene" uid="uid://bg6re0ge1bbcc" path="res://src/Scenes/player.tscn" id="4_ih414"]
 [ext_resource type="PackedScene" uid="uid://brsl2rjtf7k7g" path="res://src/Scenes/vent.tscn" id="6_q1ry8"]
+[ext_resource type="PackedScene" uid="uid://c2g1kki5yj0sx" path="res://src/Scenes/hackable_laser.tscn" id="7_4xl8s"]
 [ext_resource type="PackedScene" uid="uid://c26e78jashk4w" path="res://src/Scenes/alien_enemy_1.tscn" id="7_cyxsc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p6q7m"]
@@ -606,3 +607,5 @@ position = Vector2(208, -138)
 scale = Vector2(1.5, 1.5)
 
 [node name="Vent" parent="." instance=ExtResource("6_q1ry8")]
+
+[node name="HackableTerminal" parent="." instance=ExtResource("7_4xl8s")]
