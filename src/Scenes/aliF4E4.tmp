@@ -108,15 +108,14 @@ radius = 5.0
 height = 21.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1m4my"]
-size = Vector2(20, 9.5)
+size = Vector2(53, 9.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vt84a"]
 size = Vector2(4.5, 3)
 
 [node name="Alien_enemy_1" type="CharacterBody2D" groups=["damageable"]]
-z_index = 2
-collision_layer = 536887424
-collision_mask = 16513
+collision_layer = 16385
+collision_mask = 16385
 script = ExtResource("1_d3v74")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -137,10 +136,9 @@ shape = SubResource("CapsuleShape2D_ebv2k")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(1, 4)
-collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1, -1.25)
+position = Vector2(-0.5, -1.25)
 shape = SubResource("RectangleShape2D_1m4my")
 
 [node name="Area2D2" type="Area2D" parent="."]
@@ -157,14 +155,5 @@ collision_mask = 16384
 position = Vector2(0, 2.5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ebv2k")
-
-[node name="AlertIndicator" type="Label" parent="."]
-visible = false
-offset_left = -3.0
-offset_top = -10.0
-offset_right = 37.0
-offset_bottom = 13.0
-scale = Vector2(0.284058, 0.36645)
-text = "❗"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

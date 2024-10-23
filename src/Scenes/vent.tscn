@@ -49,6 +49,7 @@ scale = Vector2(15.88, 15.88)
 mesh = SubResource("BoxMesh_3u02t")
 
 [node name="InteractionArea" parent="." instance=ExtResource("5_e2roj")]
+collision_mask = 2
 action_name = "enter"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]

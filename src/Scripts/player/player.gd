@@ -77,15 +77,20 @@ func hide_player():
 	velocity.y = 0
 	hide()
 	player_hidden=true
+	print(get_collision_mask())
+	set_collision_mask_value(30, false)
 	# Disable all collision shapes
 	$SoundCollision/CollisionShape2D.disabled = true
 	$NearCollision/CollisionShape2D.disabled = true
+	
 func unhide_player():
 	show()
 	player_hidden=false
+	set_collision_mask_value(30, true)
 	$SoundCollision/CollisionShape2D.disabled = false
 	$NearCollision/CollisionShape2D.disabled = false
-			
+	
+	
 func die() -> void:
 	dead = true
 	velocity = Vector2.ZERO
@@ -101,7 +106,7 @@ func _physics_process(delta: float) -> void:
 	if dead: return
 	
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() && !player_hidden:
 		velocity += get_gravity() * delta
 		was_falling = true
 		falling_speed = velocity.y
@@ -144,7 +149,10 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, speed)
 			sound_area.shape.set_radius(move_toward(sound_area.shape.radius, 8, 5))
 		if (was_falling && is_on_floor()):
-			sound_area.shape.set_radius(clamp((falling_speed* fall_landing_radius_factor),min_landing_radius,max_landing_radius))
+			if(!is_crouching):
+				sound_area.shape.set_radius(clamp((falling_speed* fall_landing_radius_factor),min_landing_radius,max_landing_radius))
+			else:
+				sound_area.shape.set_radius(clamp(((falling_speed* fall_landing_radius_factor)*0.5),min_landing_radius,max_landing_radius))
 			was_falling= false
 			falling_speed = 0.0
 		noise_visualization.set_radius(sound_area.shape.radius)
