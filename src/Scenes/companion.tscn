@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl574uojs5kh4"]
+
+[ext_resource type="Script" path="res://src/Scripts/companion/companion.gd" id="1_ef5tp"]
+
+[node name="Companion" type="CharacterBody2D"]
+script = ExtResource("1_ef5tp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="SidekickCollision" type="CollisionShape2D" parent="."]
+
+[node name="NearCollision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NearCollision"]
+
+[node name="SoundCollision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoundCollision"]
+
+[node name="right_attack_box" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_attack_box"]
+
+[node name="left_attack_box" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_attack_box"]
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_right = 4.0
+offset_bottom = 27.0
+
+[node name="NoiseVisualization" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
