@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://doh0xccg7a0k7"]
+
+[ext_resource type="Script" path="res://src/Scenes/controls_menu.gd" id="1_7hvt1"]
+[ext_resource type="Texture2D" uid="uid://cmkvtdnn44yu8" path="res://Assets/Images/space background.jpg" id="2_wbt2m"]
+
+[node name="Controls_Menu" type="Node2D"]
+script = ExtResource("1_7hvt1")
+
+[node name="Background" type="TextureRect" parent="."]
+light_mask = 2
+visibility_layer = 2
+offset_right = 1164.0
+offset_bottom = 673.0
+texture = ExtResource("2_wbt2m")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+top_level = true
+offset_left = 49.0
+offset_top = 71.0
+offset_right = 356.0
+offset_bottom = 510.0
+
+[node name="Back Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 146.0
+offset_top = 115.0
+offset_right = 1078.0
+offset_bottom = 571.0
+text = "Move Left: A"
+
+[connection signal="pressed" from="VBoxContainer/Back Button" to="." method="_on_back_button_pressed"]
