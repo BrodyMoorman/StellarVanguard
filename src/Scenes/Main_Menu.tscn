@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmxoneefkpahs"]
+
+[ext_resource type="Script" path="res://src/Scenes/main_menu.gd" id="1_xfo2l"]
+[ext_resource type="Texture2D" uid="uid://cmkvtdnn44yu8" path="res://Assets/Images/space background.jpg" id="2_7a250"]
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xfo2l")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+top_level = true
+layout_mode = 0
+offset_left = 685.0
+offset_top = 434.0
+offset_right = 1134.0
+offset_bottom = 581.0
+
+[node name="Start Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[node name="Options Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Quit Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+light_mask = 2
+visibility_layer = 2
+layout_mode = 0
+offset_right = 1164.0
+offset_bottom = 673.0
+texture = ExtResource("2_7a250")
+expand_mode = 1
+
+[node name="Title" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 387.0
+offset_top = 212.0
+offset_right = 527.0
+offset_bottom = 242.0
+scale = Vector2(3.5, 3.5)
+text = "Stellar Vanguard"
+draw_control_chars = true
+
+[connection signal="pressed" from="VBoxContainer/Start Button" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Start Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options Button" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit Button" to="." method="_on_quit_button_pressed"]
