@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="InventoryData" load_steps=7 format=3 uid="uid://tsg215e4d0me"]
+
+[ext_resource type="Script" path="res://src/inventory/inventory_data.gd" id="1_ke65o"]
+[ext_resource type="Script" path="res://src/inventory/slot_data.gd" id="2_p6ajq"]
+[ext_resource type="Resource" uid="uid://dcfa648qvyhmk" path="res://src/item/items/wrench.tres" id="3_qder8"]
+[ext_resource type="Resource" uid="uid://e6de1xcqymjb" path="res://src/item/items/alarmClock.tres" id="4_wr8sc"]
+
+[sub_resource type="Resource" id="Resource_c0hfg"]
+script = ExtResource("2_p6ajq")
+item_data = ExtResource("3_qder8")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_5nfn6"]
+script = ExtResource("2_p6ajq")
+item_data = ExtResource("4_wr8sc")
+quantity = 10
+
+[resource]
+script = ExtResource("1_ke65o")
+slot_datas = Array[ExtResource("2_p6ajq")]([SubResource("Resource_c0hfg"), null, SubResource("Resource_5nfn6"), null, null, null, null, null, null, null])
