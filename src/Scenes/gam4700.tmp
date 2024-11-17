@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://bxt7p50pek54g"]
+[gd_scene load_steps=14 format=4 uid="uid://bxt7p50pek54g"]
 
 [ext_resource type="Script" path="res://src/Scenes/game.gd" id="1_36a1w"]
 [ext_resource type="Texture2D" uid="uid://bnkhldha0eae" path="res://Assets/Tiles/Castle Platformer/twilight-tiles.png" id="1_rvudh"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://c26e78jashk4w" path="res://src/Scenes/alien_enemy_1.tscn" id="7_cyxsc"]
 [ext_resource type="PackedScene" uid="uid://cp62ajemos4le" path="res://src/inventory/inventory.tscn" id="8_iokt3"]
 [ext_resource type="Script" path="res://src/inventory/inventory_interface.gd" id="9_nr45e"]
-[ext_resource type="PackedScene" uid="uid://dm4kvr0i12hdt" path="res://src/inventory/slot.tscn" id="11_u3sm5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p6q7m"]
 texture = ExtResource("1_rvudh")
@@ -618,7 +617,6 @@ scale = Vector2(1.5, 1.5)
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="InventoryInterface" type="Control" parent="UI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -633,9 +631,3 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 50.0
-
-[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("11_u3sm5")]
-visible = false
-modulate = Color(1, 1, 1, 0.388235)
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 0

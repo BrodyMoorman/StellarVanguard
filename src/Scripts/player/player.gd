@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var inventory_data: InventoryData
 
 @export var speed: int = 300.0
 @export var jump_velocity: int = -400.0
@@ -21,6 +22,7 @@ extends CharacterBody2D
 @onready var right_attack_shape: CollisionShape2D = $right_attack_box/CollisionShape2D
 
 signal interact
+signal toggle_inventory
 
 
 var health: float = 100
@@ -133,6 +135,9 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("attack"):
 		if(!player_hidden):
 			attack()
+	
+	if Input.is_action_just_pressed("inventory"):
+		toggle_inventory.emit()
 		
 		
 		
