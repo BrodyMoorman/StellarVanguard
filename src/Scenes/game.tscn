@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://bxt7p50pek54g"]
+[gd_scene load_steps=23 format=4 uid="uid://bxt7p50pek54g"]
 
 [ext_resource type="Script" path="res://src/Scenes/game.gd" id="1_36a1w"]
 [ext_resource type="Texture2D" uid="uid://bnkhldha0eae" path="res://Assets/Tiles/Castle Platformer/twilight-tiles.png" id="1_rvudh"]
@@ -11,6 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://cp62ajemos4le" path="res://src/inventory/inventory.tscn" id="8_iokt3"]
 [ext_resource type="Script" path="res://src/inventory/inventory_interface.gd" id="9_nr45e"]
 [ext_resource type="PackedScene" uid="uid://dm4kvr0i12hdt" path="res://src/inventory/slot.tscn" id="11_u3sm5"]
+[ext_resource type="PackedScene" uid="uid://q38g0kvn8nd5" path="res://src/item/pickup/Pickup.tscn" id="12_i354m"]
+[ext_resource type="PackedScene" uid="uid://dnahdtngb12u3" path="res://src/inventory/hot_bar_inventory.tscn" id="12_yah1f"]
+[ext_resource type="Resource" uid="uid://dcfa648qvyhmk" path="res://src/item/items/wrench.tres" id="13_5xlyb"]
+[ext_resource type="Resource" uid="uid://e6de1xcqymjb" path="res://src/item/items/alarmClock.tres" id="13_vfa2a"]
+[ext_resource type="Script" path="res://src/inventory/slot_data.gd" id="14_papq7"]
+[ext_resource type="PackedScene" uid="uid://cv8xpqpr1ibr8" path="res://src/Trader/trader.tscn" id="17_djfqn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p6q7m"]
 texture = ExtResource("1_rvudh")
@@ -591,6 +597,16 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_p6q7m")
 sources/1 = SubResource("TileSetAtlasSource_ktmix")
 
+[sub_resource type="Resource" id="Resource_02ihb"]
+script = ExtResource("14_papq7")
+item_data = ExtResource("13_5xlyb")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_4l2ki"]
+script = ExtResource("14_papq7")
+item_data = ExtResource("13_vfa2a")
+quantity = 5
+
 [node name="testscene" type="Node2D"]
 script = ExtResource("1_36a1w")
 
@@ -639,3 +655,22 @@ visible = false
 modulate = Color(1, 1, 1, 0.388235)
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="HotBarInventory" parent="UI" instance=ExtResource("12_yah1f")]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 430.0
+offset_bottom = 90.0
+
+[node name="Pickup" parent="." instance=ExtResource("12_i354m")]
+position = Vector2(127, 42)
+slot_data = SubResource("Resource_02ihb")
+
+[node name="Pickup2" parent="." instance=ExtResource("12_i354m")]
+position = Vector2(82, 40)
+slot_data = SubResource("Resource_4l2ki")
+
+[node name="Trader" parent="." instance=ExtResource("17_djfqn")]
+position = Vector2(343, 21)

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://k3iuxvcqp3se"]
+
+[ext_resource type="Script" path="res://src/item/item_data.gd" id="1_og3xo"]
+[ext_resource type="Texture2D" uid="uid://ydfp8fmkge3c" path="res://src/item/itemTextures/alienmatter.png" id="2_2dcqx"]
+
+[resource]
+script = ExtResource("1_og3xo")
+name = "Alien Matter"
+description = "Eww Gross, but it may be useful."
+stackable = true
+texture = ExtResource("2_2dcqx")

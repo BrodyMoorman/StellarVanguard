@@ -25,7 +25,7 @@ signal interact
 signal toggle_inventory
 
 
-var health: float = 100
+var health: float = 50
 var max_health: float = 100
 var dead: bool
 var can_take_damage: bool = true
@@ -43,6 +43,8 @@ var last_direction = 1
 
 func _ready() -> void:
 	add_to_group("Player")
+	PlayerManager.player = self
+	health_bar.value = health
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
 	
@@ -102,6 +104,13 @@ func die() -> void:
 
 func attack() -> void:
 	is_attacking = true
+
+func heal(heal_value: float) -> void:
+	if health + heal_value > 100.0:
+		health = 100.0
+	else:
+		health += heal_value
+	health_bar.value = health
 
 
 func _physics_process(delta: float) -> void:

@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
-
+const PickUp = preload("res://src/item/pickup/Pickup.tscn")
+const alienMatterItemData = preload("res://src/item/items/alienMatter.tres")
 const JUMP_VELOCITY = -400.0
 
 @export var patrol_speed: int = 30
@@ -101,6 +102,13 @@ func take_damage():
 
 func die():
 	print("Enemy killed")
+	var dropSlotData: SlotData = SlotData.new()
+	dropSlotData.item_data = alienMatterItemData
+	dropSlotData.quantity = randi_range(1, 2)
+	var pickup = PickUp.instantiate()
+	pickup.slot_data = dropSlotData
+	pickup.position = position
+	get_parent().add_child(pickup)
 	queue_free()  # This will despawn the enemy
 
 
