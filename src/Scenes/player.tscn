@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b7v402wvd6r6t" path="res://Assets/SpriteSheets/SpaceCrouching.png" id="3_4a5hu"]
 [ext_resource type="PackedScene" uid="uid://c65fuwgth81j7" path="res://src/Scenes/healthBar.tscn" id="3_4hcln"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bc3hxmfn0iofo" path="res://src/Animations/BasicPlayerStateMachine.tres" id="6_1beuj"]
-[ext_resource type="Script" path="res://src/Scenes/noise_visualization.gd" id="7_bd4b5"]
+[ext_resource type="Script" path="res://src/Scenes/tripwire_noise_visualization.gd" id="7_tmpi8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bs7h8"]
 atlas = ExtResource("2_5quvk")
@@ -695,6 +695,12 @@ animation = &"idle_right"
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_ai3s1")
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_ai3s1")
+
 [node name="ProgressBar" parent="." instance=ExtResource("3_4hcln")]
 offset_left = -11.0
 offset_top = -23.0
@@ -766,7 +772,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("7_bd4b5")
+script = ExtResource("7_tmpi8")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]

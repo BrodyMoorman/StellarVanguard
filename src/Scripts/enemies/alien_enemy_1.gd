@@ -192,7 +192,6 @@ func flip_sprite_based_on_velocity() -> void:
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	print("Somethings Here")
 	if area.get_parent().is_in_group("Player"):
 		print("Player detected")
 		is_chasing = true
