@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://dn32c5ny4l8bl"]
+[gd_scene load_steps=20 format=3 uid="uid://dn32c5ny4l8bl"]
 
 [ext_resource type="Script" path="res://src/Scripts/enemies/alien_enemy_2.gd" id="1_i5kf1"]
 [ext_resource type="Texture2D" uid="uid://y2p0ttmlf581" path="res://Assets/SpriteSheets/AlienGruntMovement.png" id="2_8dkek"]
+[ext_resource type="Script" path="res://src/Scenes/tripwire_noise_visualization.gd" id="3_d27x5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bk1cc"]
 atlas = ExtResource("2_8dkek")
@@ -170,3 +171,12 @@ text = "❗"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EcholocationArea"]
 shape = SubResource("CircleShape2D_712fm")
+
+[node name="NoiseVisualization" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_d27x5")
+
+[connection signal="area_entered" from="EcholocationArea" to="." method="_on_echolocation_area_entered"]

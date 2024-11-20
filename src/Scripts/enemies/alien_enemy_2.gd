@@ -18,9 +18,9 @@ const JUMP_VELOCITY = -400.0
 @export var noise_detection_range: float = 150.0
 @export var noise_timeout: float = 0.1  # How long to wait at the last known location before resuming patrol
 
-@export var max_echolocation_range: float = 200.0
+@export var max_echolocation_range: float = 50.0
 @export var echolocation_expansion_speed: float = 100.0
-@export var echolocation_cooldown: float = 2.0  # Cooldown between pulses
+@export var echolocation_cooldown: float = 3.0  # Cooldown between pulses
 
 @onready var player = null
 @onready var alert_indicator = $AlertIndicator
@@ -28,6 +28,7 @@ const JUMP_VELOCITY = -400.0
 @onready var attack_area = $Area2D
 @onready var animations = $AnimatedSprite2D
 
+@onready var noise_visualization: Control = $NoiseVisualization
 @onready var echolocation_area = $EcholocationArea
 @onready var echolocation_shape: CircleShape2D = $EcholocationArea/CollisionShape2D.shape
 @onready var echolocation_timer: Timer = Timer.new()
@@ -68,6 +69,7 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_echolocating and not is_chasing:
 		patrol()
+		start_echolocation()
 	
 	if is_echolocating:
 		expand_echolocation(delta)
@@ -77,22 +79,32 @@ func _physics_process(delta: float) -> void:
 func start_echolocation() -> void:
 	is_echolocating = true
 	echolocation_shape.radius = 0  # Reset radius to start from zero
-
+	noise_visualization.visible = true
+	noise_visualization.set_radius(0)  # Reset visualization
 
 func expand_echolocation(delta: float) -> void:
-	if echolocation_shape.radius < max_echolocation_range:
+	if echolocation_shape.radius < max_echolocation_range-3:
 	# Gradually expand the radius
-		echolocation_shape.radius += echolocation_expansion_speed * delta
+		var expansion_factor = 1.0 - (echolocation_shape.radius / max_echolocation_range)
+		var current_speed = echolocation_expansion_speed * expansion_factor
+		echolocation_shape.radius += current_speed * delta
+		noise_visualization.set_radius(echolocation_shape.radius)
 	else:
 	# Stop expanding and wait for cooldown
 		is_echolocating = false
+		noise_visualization.visible = false
 		echolocation_timer.start()
 
 
 func _on_echolocation_area_entered(area: Area2D) -> void:
+	print("Area Entered:")
+	print("  Name:", area.name)
+	print("  Parent:", area.get_parent())
+	print("  Groups:", area.get_groups())
 	if area.get_parent().is_in_group("Player"):
 		print("Player detected via echolocation!")
 		is_echolocating = false
+		noise_visualization.visible = false
 		player = area.get_parent()
 		is_chasing = true
 		chase_player()
