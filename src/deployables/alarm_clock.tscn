@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://0e2su3v6ytvp"]
+
+[ext_resource type="Script" path="res://src/deployables/alarm_clock.gd" id="1_ru5ic"]
+[ext_resource type="Texture2D" uid="uid://c6ouvmuf5y8rd" path="res://src/item/itemTextures/alarmClock.png" id="2_x406q"]
+[ext_resource type="AudioStream" uid="uid://mcy1mjl0t0dw" path="res://Assets/Sounds/clockTicking.mp3" id="3_bcbp5"]
+[ext_resource type="AudioStream" uid="uid://cls6sf2futm2w" path="res://Assets/Sounds/clockRinging.mp3" id="4_i0gex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vaeju"]
+radius = 240.052
+
+[node name="AlarmClock" type="Node2D"]
+script = ExtResource("1_ru5ic")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("2_x406q")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_vaeju")
+disabled = true
+
+[node name="TickingPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_bcbp5")
+volume_db = -12.0
+max_distance = 500.0
+
+[node name="RingingPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_i0gex")
+volume_db = -12.0
+max_distance = 500.0
+
+[connection signal="finished" from="TickingPlayer" to="." method="_on_ticking_player_finished"]
+[connection signal="finished" from="RingingPlayer" to="." method="_on_ringing_player_finished"]

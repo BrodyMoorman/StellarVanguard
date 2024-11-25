@@ -4,6 +4,7 @@ signal transmit_frequency
 
 const BoomBox = preload("res://src/deployables/boom_box.tscn")
 const RF_RECIEVER = preload("res://src/deployables/rf_reciever.tscn")
+const ALARM_CLOCK = preload("res://src/deployables/alarm_clock.tscn")
 
 @export var inventory_data: InventoryData
 @export var speed: int = 300.0
@@ -33,6 +34,7 @@ const RF_RECIEVER = preload("res://src/deployables/rf_reciever.tscn")
 @onready var louis: AudioStreamPlayer = $Louis
 @onready var freq_label: Label = $CanvasLayer/Control/FreqLabel
 @onready var floor_detection: RayCast2D = $FloorDetection
+@onready var radiobeep: AudioStreamPlayer = $Radiobeep
 
 
 signal interact
@@ -175,8 +177,24 @@ func deploy_rf_reciever()->void:
 	inventory_data.slot_datas[active_index] = null
 	active_index = -1
 	inventory_data.updateInv()
+func deploy_alarm_clock()-> void:
+	var new_alarm = ALARM_CLOCK.instantiate()
+	if floor_detection.is_colliding():
+		var collision_point = floor_detection.get_collision_point()
+		collision_point.y -= 5
+		new_alarm.position = collision_point
+	else:
+		new_alarm.position = position
+	var deployables_node = get_parent().get_deployables_node()
+	deployables_node.add_child(new_alarm)
+	active_item = ""
+	inventory_data.slot_datas[active_index] = null
+	active_index = -1
+	inventory_data.updateInv()
+	
 
 func transmit_signal() -> void:
+	radiobeep.play()
 	for deployable in get_parent().get_deployables_node().get_children():
 		if deployable.frequency == current_frequency:
 			deployable.toggle()
@@ -281,6 +299,8 @@ func _physics_process(delta: float) -> void:
 					deploy_boombox()
 				if(active_item=="RF Reciever"):
 					deploy_rf_reciever()
+				if(active_item=="Alarm Clock"):
+					deploy_alarm_clock()
 			if(active_item == "RF Transmitter"):
 				transmit_signal()
 			

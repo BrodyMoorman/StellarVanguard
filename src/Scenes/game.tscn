@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://bxt7p50pek54g"]
+[gd_scene load_steps=28 format=4 uid="uid://bxt7p50pek54g"]
 
 [ext_resource type="Script" path="res://src/Scenes/game.gd" id="1_36a1w"]
 [ext_resource type="Texture2D" uid="uid://bnkhldha0eae" path="res://Assets/Tiles/Castle Platformer/twilight-tiles.png" id="1_rvudh"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://q38g0kvn8nd5" path="res://src/item/pickup/Pickup.tscn" id="12_i354m"]
 [ext_resource type="PackedScene" uid="uid://dnahdtngb12u3" path="res://src/inventory/hot_bar_inventory.tscn" id="12_yah1f"]
 [ext_resource type="Resource" uid="uid://dcfa648qvyhmk" path="res://src/item/items/wrench.tres" id="13_5xlyb"]
-[ext_resource type="Resource" uid="uid://e6de1xcqymjb" path="res://src/item/items/alarmClock.tres" id="13_vfa2a"]
 [ext_resource type="Script" path="res://src/inventory/slot_data.gd" id="14_papq7"]
 [ext_resource type="PackedScene" uid="uid://cv8xpqpr1ibr8" path="res://src/Trader/trader.tscn" id="17_djfqn"]
 [ext_resource type="AudioStream" uid="uid://bb31t5cqprdpl" path="res://Assets/Sounds/station-deep-ambience_bg.wav" id="18_v8pen"]
@@ -606,11 +605,6 @@ script = ExtResource("14_papq7")
 item_data = ExtResource("13_5xlyb")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_4l2ki"]
-script = ExtResource("14_papq7")
-item_data = ExtResource("13_vfa2a")
-quantity = 5
-
 [sub_resource type="Resource" id="Resource_n8x6u"]
 script = ExtResource("14_papq7")
 item_data = ExtResource("19_q18nf")
@@ -651,9 +645,10 @@ position = Vector2(271, 38)
 scale = Vector2(1.5, 1.5)
 
 [node name="Vent" parent="." instance=ExtResource("6_q1ry8")]
-position = Vector2(-109, 48)
+position = Vector2(135, 30)
 
 [node name="HackableTerminal" parent="." instance=ExtResource("7_4xl8s")]
+position = Vector2(-25, 33)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -691,10 +686,6 @@ offset_bottom = 90.0
 [node name="Pickup" parent="." instance=ExtResource("12_i354m")]
 position = Vector2(127, 42)
 slot_data = SubResource("Resource_02ihb")
-
-[node name="Pickup2" parent="." instance=ExtResource("12_i354m")]
-position = Vector2(82, 40)
-slot_data = SubResource("Resource_4l2ki")
 
 [node name="Trader" parent="." instance=ExtResource("17_djfqn")]
 position = Vector2(343, 21)

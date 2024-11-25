@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("1_p0024")
 heal_value = 15.0
-name = "Equipable alarm Clock"
-description = "Awesome Sauce"
-stackable = true
+name = "Alarm Clock"
+description = "Distracts enemys for 10s, has a small delay before it starts."
+stackable = false
 equipable = true
 texture = ExtResource("2_8d15v")
