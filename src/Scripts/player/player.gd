@@ -62,6 +62,8 @@ var has_music_powers = false
 var active_index: int
 var current_frequency:int = 0
 var deployables = []
+var frames_since_on_floor:int = 0
+var allow_jump:bool = true
 
 
 
@@ -250,6 +252,14 @@ func _play_footstep_audio(volume:int = -17) -> void:
 func _physics_process(delta: float) -> void:
 	if dead: return
 	
+	if is_on_floor():
+		frames_since_on_floor= 0
+		allow_jump = true
+	else:
+		frames_since_on_floor+=1
+		if frames_since_on_floor > 10:
+			allow_jump = false
+	
 	# Add the gravity.
 	if not is_on_floor() && !player_hidden:
 		velocity += get_gravity() * delta
@@ -271,7 +281,7 @@ func _physics_process(delta: float) -> void:
 
 	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and allow_jump:
 		if(!player_hidden):
 			velocity.y = jump_velocity
 
