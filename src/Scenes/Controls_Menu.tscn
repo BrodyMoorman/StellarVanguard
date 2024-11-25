@@ -30,6 +30,12 @@ offset_left = 146.0
 offset_top = 115.0
 offset_right = 1078.0
 offset_bottom = 571.0
-text = "Move Left: A"
+text = "Move Left : A
+Move Right : D
+Jump : Spacebar
+Crouch : Ctrl
+Enter Vent : F
+exit Vent : F
+"
 
 [connection signal="pressed" from="VBoxContainer/Back Button" to="." method="_on_back_button_pressed"]
