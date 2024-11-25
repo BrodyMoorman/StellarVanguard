@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://bg6re0ge1bbcc"]
+[gd_scene load_steps=85 format=3 uid="uid://bg6re0ge1bbcc"]
 
 [ext_resource type="Script" path="res://src/Scripts/player/player.gd" id="1_3nm6x"]
 [ext_resource type="Texture2D" uid="uid://c78tmk8p4e0m4" path="res://Assets/SpriteSheets/SpaceManFirstDraft (1).png" id="2_0ae6i"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://src/Scenes/left_trumpet_vis.gd" id="11_a6t4t"]
 [ext_resource type="AudioStream" uid="uid://b38ryxqjpb6p7" path="res://Assets/Sounds/badTrumpetTrimmed.wav" id="14_rj833"]
 [ext_resource type="AudioStream" uid="uid://q1eqbc3n5dn6" path="res://Assets/Sounds/Louis.mp3" id="15_syave"]
+[ext_resource type="AudioStream" uid="uid://bm4672qj60li8" path="res://Assets/Sounds/radiobeep.wav" id="16_gbpuy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bs7h8"]
 atlas = ExtResource("2_5quvk")
@@ -1038,6 +1039,10 @@ text = "2Mhz"
 
 [node name="FloorDetection" type="RayCast2D" parent="."]
 target_position = Vector2(0, 25)
+
+[node name="Radiobeep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_gbpuy")
+volume_db = -10.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
