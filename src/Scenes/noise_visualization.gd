@@ -9,3 +9,4 @@ func set_radius(new_radius):
 
 func _draw():
 	draw_circle(Vector2(0, 0), radius, Color(1, 1, 1, 0.05))  # Semi-transparent white
+	

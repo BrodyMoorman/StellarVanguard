@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://c2g1kki5yj0sx"]
+[gd_scene load_steps=16 format=4 uid="uid://c2g1kki5yj0sx"]
 
 [ext_resource type="Script" path="res://src/Scripts/extra/hackable_terminal.gd" id="1_eym2q"]
 [ext_resource type="Texture2D" uid="uid://cyqfiydc0grwu" path="res://Assets/Tiles/Science Lab/level_tileset.png" id="2_kh5md"]
 [ext_resource type="PackedScene" uid="uid://d4a4dps0qsi5y" path="res://src/interaction/interactionArea/interactionArea.tscn" id="3_s0gvw"]
+[ext_resource type="AudioStream" uid="uid://c37nvpl2r5sa4" path="res://Assets/Sounds/power-down.wav" id="4_3hokm"]
+[ext_resource type="AudioStream" uid="uid://cfumjhjmn10h4" path="res://Assets/Sounds/power-up (mp3cut.net).wav" id="5_jmpcb"]
+[ext_resource type="AudioStream" uid="uid://bw2rt7ck2tjx2" path="res://Assets/Sounds/zap.mp3" id="6_0wr4b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ebnmb"]
 texture = ExtResource("2_kh5md")
@@ -595,6 +598,9 @@ texture = ExtResource("2_kh5md")
 [sub_resource type="TileSet" id="TileSet_av37r"]
 sources/0 = SubResource("TileSetAtlasSource_pes8r")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cd020"]
+size = Vector2(20, 44)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bqgux"]
 texture = ExtResource("2_kh5md")
 0:0/0 = 0
@@ -889,6 +895,9 @@ texture = ExtResource("2_kh5md")
 [sub_resource type="TileSet" id="TileSet_xpeej"]
 sources/0 = SubResource("TileSetAtlasSource_bqgux")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbxu4"]
+size = Vector2(27, 23)
+
 [node name="HackableTerminal" type="Node2D"]
 position = Vector2(-2, 32)
 script = ExtResource("1_eym2q")
@@ -913,6 +922,41 @@ shape = SubResource("RectangleShape2D_ru1nl")
 tile_map_data = PackedByteArray("AAAFAP3/AAAIAAoAAAAFAAAAAAAIAA0AAAAGAP3/AAAJAAoAAAAGAAAAAAAJAA0AAAA=")
 tile_set = SubResource("TileSet_av37r")
 
-[node name="Activated Laser" type="TileMapLayer" parent="Laser"]
+[node name="Area2D" type="Area2D" parent="Laser"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Laser/Area2D"]
+position = Vector2(97, -13)
+shape = SubResource("RectangleShape2D_cd020")
+
+[node name="Activated Laser" type="TileMapLayer" parent="Laser/Area2D"]
 tile_map_data = PackedByteArray("AAAFAP7/AAAKAAsAAAAFAP//AAAKAAwAAAAFAAAAAAAKAA0AAAAGAP3/AAALAAoAAAAGAP7/AAALAAsAAAAGAP//AAALAAwAAAAGAAAAAAALAA0AAAAFAP3/AAAKAAoAAAA=")
 tile_set = SubResource("TileSet_xpeej")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(2, -32)
+
+[node name="Power-down" type="AudioStreamPlayer" parent="AudioStreamPlayer2D"]
+stream = ExtResource("4_3hokm")
+volume_db = -10.0
+
+[node name="Power-up" type="AudioStreamPlayer" parent="AudioStreamPlayer2D"]
+stream = ExtResource("5_jmpcb")
+volume_db = -10.0
+
+[node name="Zap" type="AudioStreamPlayer" parent="AudioStreamPlayer2D"]
+stream = ExtResource("6_0wr4b")
+volume_db = -20.0
+
+[node name="HackingCollider" type="Area2D" parent="."]
+collision_layer = 16777216
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HackingCollider"]
+position = Vector2(-0.5, 4.5)
+shape = SubResource("RectangleShape2D_kbxu4")
+
+[connection signal="area_entered" from="Laser/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="finished" from="AudioStreamPlayer2D/Power-down" to="." method="_on_powerdown_finished"]
+[connection signal="finished" from="AudioStreamPlayer2D/Power-up" to="." method="_on_powerup_finished"]

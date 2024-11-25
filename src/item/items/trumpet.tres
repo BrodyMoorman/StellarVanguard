@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDataEquipable" load_steps=3 format=3 uid="uid://wcbcu0gfcuww"]
+
+[ext_resource type="Script" path="res://src/item/item_data_equipable.gd" id="1_hs1wf"]
+[ext_resource type="Texture2D" uid="uid://dvty6ly6eqckr" path="res://src/item/itemTextures/Trumpet.png" id="2_62q2s"]
+
+[resource]
+script = ExtResource("1_hs1wf")
+heal_value = 15.0
+name = "Trumpet"
+description = "Used to attract enemys at a distance. How do I blow this through my helmet?"
+stackable = false
+equipable = true
+texture = ExtResource("2_62q2s")

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://vj026srkqj3y"]
+
+[ext_resource type="Script" path="res://src/deployables/rf_reciever.gd" id="1_rjtci"]
+[ext_resource type="Texture2D" uid="uid://dnpe4mf0p0yeb" path="res://src/item/itemTextures/rfReciever.png" id="1_we24q"]
+[ext_resource type="Script" path="res://src/interaction_area.gd" id="2_5h3gs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nqime"]
+size = Vector2(29, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y7uiw"]
+radius = 48.0104
+
+[node name="RfReciever" type="Node2D"]
+script = ExtResource("1_rjtci")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("1_we24q")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 130
+script = ExtResource("2_5h3gs")
+action_name = "Pick Up RF Reciever"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(-0.5, -2)
+shape = SubResource("RectangleShape2D_nqime")
+
+[node name="HackingArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16777216
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HackingArea"]
+shape = SubResource("CircleShape2D_y7uiw")
