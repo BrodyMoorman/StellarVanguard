@@ -96,9 +96,6 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage:int = 50):
 	health -= damage
-	var knockback_direction = global_transform.origin - player.global_transform.origin
-
-	apply_knockback(knockback_direction)
 
 func die():
 	print("Enemy killed")
