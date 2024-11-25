@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://dg3a2lxytin07"]
+
+[ext_resource type="Script" path="res://src/deployables/boom_box.gd" id="1_tsgcf"]
+[ext_resource type="Texture2D" uid="uid://chm32gokklrvb" path="res://Assets/SpriteSheets/boombox.png" id="2_1nnff"]
+[ext_resource type="AudioStream" uid="uid://xalj733wln0j" path="res://Assets/Sounds/Fortnite.mp3" id="3_dwwo1"]
+[ext_resource type="PackedScene" uid="uid://d4a4dps0qsi5y" path="res://src/interaction/interactionArea/interactionArea.tscn" id="4_uoyt3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctqxq"]
+atlas = ExtResource("2_1nnff")
+region = Rect2(0, 0, 640, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6clk6"]
+atlas = ExtResource("2_1nnff")
+region = Rect2(640, 0, 640, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vhe8r"]
+atlas = ExtResource("2_1nnff")
+region = Rect2(0, 640, 640, 640)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ujn8m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctqxq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6clk6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vhe8r")
+}],
+"loop": true,
+"name": &"playing",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jeut6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_schus"]
+
+[node name="BoomBox" type="Node2D"]
+script = ExtResource("1_tsgcf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.03, 0.03)
+sprite_frames = SubResource("SpriteFrames_ujn8m")
+animation = &"playing"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(50.11, 50.11)
+shape = SubResource("CircleShape2D_jeut6")
+disabled = true
+
+[node name="Fortnite" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_dwwo1")
+volume_db = -25.0
+
+[node name="InteractionArea" parent="." instance=ExtResource("4_uoyt3")]
+action_name = "Pick Up BoomBox"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("RectangleShape2D_schus")

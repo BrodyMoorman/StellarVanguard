@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://bg6re0ge1bbcc"]
+[gd_scene load_steps=68 format=3 uid="uid://bg6re0ge1bbcc"]
 
 [ext_resource type="Script" path="res://src/Scripts/player/player.gd" id="1_3nm6x"]
 [ext_resource type="Texture2D" uid="uid://c78tmk8p4e0m4" path="res://Assets/SpriteSheets/SpaceManFirstDraft (1).png" id="2_0ae6i"]
@@ -7,14 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://b7v402wvd6r6t" path="res://Assets/SpriteSheets/SpaceCrouching.png" id="3_4a5hu"]
 [ext_resource type="PackedScene" uid="uid://c65fuwgth81j7" path="res://src/Scenes/healthBar.tscn" id="3_4hcln"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bc3hxmfn0iofo" path="res://src/Animations/BasicPlayerStateMachine.tres" id="6_1beuj"]
-[ext_resource type="Texture2D" uid="uid://cxxfswfxwlfn7" path="res://Assets/SpriteSheets/TrumpetLeftDance.png" id="6_rynqr"]
 [ext_resource type="Script" path="res://src/Scenes/noise_visualization.gd" id="7_bd4b5"]
-[ext_resource type="Texture2D" uid="uid://b3du0ct7ce7y8" path="res://Assets/SpriteSheets/TrumpetRightDance.png" id="7_skqv6"]
 [ext_resource type="AudioStream" uid="uid://b443xjpndie7c" path="res://Assets/Sounds/footstep_metal.ogg" id="9_0odq5"]
-[ext_resource type="Script" path="res://src/Scenes/right_trumpet_vis.gd" id="10_r10ok"]
-[ext_resource type="Script" path="res://src/Scenes/left_trumpet_vis.gd" id="11_a6t4t"]
-[ext_resource type="AudioStream" uid="uid://b38ryxqjpb6p7" path="res://Assets/Sounds/badTrumpetTrimmed.wav" id="14_rj833"]
-[ext_resource type="AudioStream" uid="uid://q1eqbc3n5dn6" path="res://Assets/Sounds/Louis.mp3" id="15_syave"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bs7h8"]
 atlas = ExtResource("2_5quvk")
@@ -168,38 +162,6 @@ region = Rect2(660, 660, 660, 660)
 atlas = ExtResource("3_4a5hu")
 region = Rect2(1320, 660, 660, 660)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cubvv"]
-atlas = ExtResource("6_rynqr")
-region = Rect2(0, 0, 660, 660)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_50tni"]
-atlas = ExtResource("6_rynqr")
-region = Rect2(660, 0, 660, 660)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4cr5m"]
-atlas = ExtResource("6_rynqr")
-region = Rect2(0, 660, 660, 660)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lgd71"]
-atlas = ExtResource("6_rynqr")
-region = Rect2(660, 660, 660, 660)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6ogul"]
-atlas = ExtResource("7_skqv6")
-region = Rect2(0, 0, 660, 660)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vvigt"]
-atlas = ExtResource("7_skqv6")
-region = Rect2(660, 0, 660, 660)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q8yg7"]
-atlas = ExtResource("7_skqv6")
-region = Rect2(0, 660, 660, 660)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ehmbb"]
-atlas = ExtResource("7_skqv6")
-region = Rect2(660, 660, 660, 660)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_unw1y"]
 animations = [{
 "frames": [{
@@ -287,7 +249,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wvnxe")
 }],
-"loop": false,
+"loop": true,
 "name": &"move_left",
 "speed": 5.0
 }, {
@@ -364,40 +326,6 @@ animations = [{
 }],
 "loop": true,
 "name": &"move_right_crouch",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cubvv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_50tni")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4cr5m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lgd71")
-}],
-"loop": true,
-"name": &"trumpet_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6ogul")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vvigt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q8yg7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ehmbb")
-}],
-"loop": true,
-"name": &"trumpet_right",
 "speed": 5.0
 }]
 
@@ -707,33 +635,6 @@ tracks/1/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_cvk16"]
-resource_name = "trumpet_left"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"trumpet_left"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.3, 0.433333),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-
 [sub_resource type="Animation" id="Animation_ojw3v"]
 resource_name = "walk_left"
 length = 0.6
@@ -826,33 +727,6 @@ tracks/2/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_hmm8k"]
-resource_name = "trumpet_right"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"trumpet_right"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.533333),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 2, 0, 3]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ch2nj"]
 _data = {
 "RESET": SubResource("Animation_msrxj"),
@@ -864,8 +738,6 @@ _data = {
 "idle_left_crouch": SubResource("Animation_dhewn"),
 "idle_right": SubResource("Animation_e5v82"),
 "idle_right_crouch": SubResource("Animation_3w24b"),
-"trumpet_left": SubResource("Animation_cvk16"),
-"trumpet_right": SubResource("Animation_hmm8k"),
 "walk_left": SubResource("Animation_ojw3v"),
 "walk_right": SubResource("Animation_gawwl")
 }
@@ -876,7 +748,7 @@ size = Vector2(13, 20.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nq8to"]
 size = Vector2(13.5, 21)
 
-[node name="Player" type="CharacterBody2D" groups=["damageable", "player"]]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
 collision_layer = 2
 collision_mask = 536870913
@@ -930,13 +802,11 @@ parameters/conditions/Attacking = false
 parameters/conditions/CrouchIdle = false
 parameters/conditions/CrouchWalk = false
 parameters/conditions/Idle = false
-parameters/conditions/Playing = false
 parameters/conditions/Walk = false
 parameters/Attack/blend_position = 0
 parameters/CrouchIdle/blend_position = 0
 parameters/CrouchWalking/blend_position = 0
 parameters/Idle/blend_position = 0
-parameters/Trumpet/blend_position = -0.0294659
 parameters/Walk/blend_position = -0.189687
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -969,75 +839,10 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("7_bd4b5")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-
-[node name="FootstepMetal" type="AudioStreamPlayer" parent="AudioStreamPlayer2D"]
+[node name="FootstepMetal" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_0odq5")
 volume_db = -17.0
 autoplay = true
-
-[node name="TrumpetRight" type="Area2D" parent="."]
-collision_layer = 128
-collision_mask = 0
-
-[node name="TrumpetRightCollision" type="CollisionPolygon2D" parent="TrumpetRight"]
-polygon = PackedVector2Array(0, -1, 0, 1, 250, 60, 250, -60)
-disabled = true
-
-[node name="RightTrumpetVis" type="Control" parent="TrumpetRight"]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("10_r10ok")
-
-[node name="TrumpetLeft" type="Area2D" parent="."]
-collision_layer = 128
-collision_mask = 0
-
-[node name="TrumpetLeftCollision" type="CollisionPolygon2D" parent="TrumpetLeft"]
-polygon = PackedVector2Array(0, -1, 0, 1, -250, 60, -250, -60)
-disabled = true
-
-[node name="LeftTrumpetVis" type="Control" parent="TrumpetLeft"]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("11_a6t4t")
-
-[node name="Polygon2D" type="Polygon2D" parent="."]
-
-[node name="BadTrumpetTrimmed" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("14_rj833")
-volume_db = -7.0
-
-[node name="Louis" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("15_syave")
-volume_db = -15.0
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="FreqLabel" type="Label" parent="CanvasLayer/Control"]
-visible = false
-layout_mode = 0
-offset_left = 1097.0
-offset_right = 1149.0
-offset_bottom = 23.0
-text = "2Mhz"
-
-[node name="FloorDetection" type="RayCast2D" parent="."]
-target_position = Vector2(0, 25)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]

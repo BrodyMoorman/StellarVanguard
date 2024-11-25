@@ -1,10 +1,23 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=20 format=3 uid="uid://bc3hxmfn0iofo"]
+[gd_resource type="AnimationNodeStateMachine" load_steps=28 format=3 uid="uid://bc3hxmfn0iofo"]
 
 [ext_resource type="AnimationNodeBlendSpace1D" uid="uid://d1bqn0cades11" path="res://src/Animations/attack_blend_space_1d.tres" id="1_o7kmt"]
 [ext_resource type="AnimationNodeBlendSpace1D" uid="uid://d4i10i6rkqcop" path="res://src/Animations/idle_crouch_blend_space_1d.tres" id="2_6hkl0"]
 [ext_resource type="AnimationNodeBlendSpace1D" uid="uid://bhohrbogfcgrr" path="res://src/Animations/crouch_blend_space_1d.tres" id="3_bp5fn"]
 [ext_resource type="AnimationNodeBlendSpace1D" uid="uid://dvptqcsiw3u74" path="res://src/Animations/idle_blend_space_1d.tres" id="4_ojkrx"]
 [ext_resource type="AnimationNodeBlendSpace1D" uid="uid://dxbttwctb88vy" path="res://src/Animations/walk_blend_space_1d.tres" id="5_vikvn"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_llv78"]
+animation = &"trumpet_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8ab2k"]
+animation = &"trumpet_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_1o7q3"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_llv78")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_8ab2k")
+blend_point_1/pos = 1.0
+blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_im2rl"]
 advance_mode = 2
@@ -61,6 +74,26 @@ advance_condition = &"Attacking"
 advance_mode = 2
 advance_condition = &"Attacking"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v84q4"]
+advance_mode = 2
+advance_condition = &"Playing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oy0a3"]
+advance_mode = 2
+advance_condition = &"Playing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f5vvh"]
+advance_mode = 2
+advance_condition = &"Playing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4u25i"]
+advance_mode = 2
+advance_condition = &"Playing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vj7b8"]
+switch_mode = 2
+advance_mode = 2
+
 [resource]
 states/Attack/node = ExtResource("1_o7kmt")
 states/Attack/position = Vector2(551, -119)
@@ -71,7 +104,9 @@ states/CrouchWalking/position = Vector2(394, 175)
 states/Idle/node = ExtResource("4_ojkrx")
 states/Idle/position = Vector2(414, 33)
 states/Start/position = Vector2(112, 48)
+states/Trumpet/node = SubResource("AnimationNodeBlendSpace1D_1o7q3")
+states/Trumpet/position = Vector2(656, -32)
 states/Walk/node = ExtResource("5_vikvn")
 states/Walk/position = Vector2(243, 48)
-transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_im2rl"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_pv7a5"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_1kgg1"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_j2fdt"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_gkhaj"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_bwsy0"), "Walk", "CrouchWalking", SubResource("AnimationNodeStateMachineTransition_jkskq"), "Idle", "CrouchIdle", SubResource("AnimationNodeStateMachineTransition_qyiv7"), "CrouchWalking", "CrouchIdle", SubResource("AnimationNodeStateMachineTransition_nhv0x"), "CrouchIdle", "Idle", SubResource("AnimationNodeStateMachineTransition_u6k1g"), "CrouchIdle", "CrouchWalking", SubResource("AnimationNodeStateMachineTransition_bnfx2"), "CrouchWalking", "Walk", SubResource("AnimationNodeStateMachineTransition_8mi0l"), "CrouchIdle", "Attack", SubResource("AnimationNodeStateMachineTransition_dbq8j"), "CrouchWalking", "Attack", SubResource("AnimationNodeStateMachineTransition_bnyst")]
-graph_offset = Vector2(-68, -257)
+transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_im2rl"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_pv7a5"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_1kgg1"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_j2fdt"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_gkhaj"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_bwsy0"), "Walk", "CrouchWalking", SubResource("AnimationNodeStateMachineTransition_jkskq"), "Idle", "CrouchIdle", SubResource("AnimationNodeStateMachineTransition_qyiv7"), "CrouchWalking", "CrouchIdle", SubResource("AnimationNodeStateMachineTransition_nhv0x"), "CrouchIdle", "Idle", SubResource("AnimationNodeStateMachineTransition_u6k1g"), "CrouchIdle", "CrouchWalking", SubResource("AnimationNodeStateMachineTransition_bnfx2"), "CrouchWalking", "Walk", SubResource("AnimationNodeStateMachineTransition_8mi0l"), "CrouchIdle", "Attack", SubResource("AnimationNodeStateMachineTransition_dbq8j"), "CrouchWalking", "Attack", SubResource("AnimationNodeStateMachineTransition_bnyst"), "Walk", "Trumpet", SubResource("AnimationNodeStateMachineTransition_v84q4"), "CrouchIdle", "Trumpet", SubResource("AnimationNodeStateMachineTransition_oy0a3"), "CrouchWalking", "Trumpet", SubResource("AnimationNodeStateMachineTransition_f5vvh"), "Idle", "Trumpet", SubResource("AnimationNodeStateMachineTransition_4u25i"), "Trumpet", "Idle", SubResource("AnimationNodeStateMachineTransition_vj7b8")]
+graph_offset = Vector2(51, -114)

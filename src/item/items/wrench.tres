@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dcfa648qvyhmk"]
+
+[ext_resource type="Script" path="res://src/item/item_data.gd" id="1_xm3ye"]
+[ext_resource type="Texture2D" uid="uid://dvkb4eny1ipi4" path="res://src/item/itemTextures/wrench.png" id="2_sg0ey"]
+
+[resource]
+script = ExtResource("1_xm3ye")
+name = "Wrench"
+description = "A deadly weapon"
+stackable = false
+texture = ExtResource("2_sg0ey")

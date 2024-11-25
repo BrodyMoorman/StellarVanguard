@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
-
+const PickUp = preload("res://src/item/pickup/Pickup.tscn")
+const alienMatterItemData = preload("res://src/item/items/alienMatter.tres")
 const JUMP_VELOCITY = -400.0
 
 @export var patrol_speed: int = 30
-@export var chase_speed: int = 150
+@export var chase_speed: int = 100
 @export var jump_velocity: float = -400.0
 @export var max_jump_attempts: int = 3
 @export var starting_health: int = 100
@@ -93,14 +94,21 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	animations.play("move_left")
 
-func take_damage():
-	health -= 50
+func take_damage(damage:int = 50):
+	health -= damage
 	var knockback_direction = global_transform.origin - player.global_transform.origin
 
 	apply_knockback(knockback_direction)
 
 func die():
 	print("Enemy killed")
+	var dropSlotData: SlotData = SlotData.new()
+	dropSlotData.item_data = alienMatterItemData
+	dropSlotData.quantity = randi_range(1, 2)
+	var pickup = PickUp.instantiate()
+	pickup.slot_data = dropSlotData
+	pickup.position = position
+	get_parent().add_child(pickup)
 	queue_free()  # This will despawn the enemy
 
 
@@ -151,11 +159,15 @@ func investigate_noise() -> void:
 		if position.distance_to(last_known_player_position) > 10:  # Some threshold for stopping
 			var direction_to_location = (last_known_player_position - position).normalized()
 			velocity.x = direction_to_location.x * chase_speed
+			if velocity.x < 0:
+				scale.x = -1* abs(scale.x)
+			if velocity.x > 0:
+				scale.x = abs(scale.x)
 			if not is_on_floor():
 				velocity += get_gravity() * get_physics_process_delta_time()
 			
 				
-			if is_on_wall() and is_on_floor() and !is_jumping:
+			if (is_on_wall() or !raycast.is_colliding()) and is_on_floor() and !is_jumping:
 				print("trying jump")
 				if jump_attempts < max_jump_attempts:
 					jump()  # Try jumping over the wall
@@ -193,11 +205,10 @@ func flip_sprite_based_on_velocity() -> void:
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	print("Somethings Here")
-	if area.get_parent().is_in_group("Player"):
-		print("Player detected")
-		is_chasing = true
-		player = area.get_parent()
-		last_known_player_position = player.global_position
-		is_investigating_noise = true
-		reached_location =  false
-		jump_attempts = 0  # Reset jump attempts
+	print("Player detected")
+	is_chasing = true
+	player = area.get_parent()
+	last_known_player_position = player.global_position
+	is_investigating_noise = true
+	reached_location =  false
+	jump_attempts = 0  # Reset jump attempts
