@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDataRemote" load_steps=3 format=3 uid="uid://do5hhsq668umw"]
+
+[ext_resource type="Script" path="res://src/item/item_data_remote.gd" id="1_hssqa"]
+[ext_resource type="Texture2D" uid="uid://dnpe4mf0p0yeb" path="res://src/item/itemTextures/rfReciever.png" id="2_hdclk"]
+
+[resource]
+script = ExtResource("1_hssqa")
+heal_value = 15.0
+name = "RF Reciever"
+description = "Place near a terminal to remotely interact with it."
+stackable = false
+equipable = true
+texture = ExtResource("2_hdclk")

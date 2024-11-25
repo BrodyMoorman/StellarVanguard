@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_og3xo")
 name = "Alien Matter"
-description = "Eww Gross, but it may be useful."
+description = "Eww Gross, but it may be useful. "
 stackable = true
+equipable = false
 texture = ExtResource("2_2dcqx")

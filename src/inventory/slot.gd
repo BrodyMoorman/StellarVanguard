@@ -4,18 +4,25 @@ signal slot_clicked(index:int, button:int)
 
 @onready var texture_rect: TextureRect = $MarginContainer/TextureRect
 @onready var quantity_label: Label = $QuantityLabel
+@onready var active_slot_border: TextureRect = $ActiveSlotBorder
+
+
 
 
 func set_slot_data(slot_data:  SlotData)-> void:
 	var item_data = slot_data.item_data
 	texture_rect.texture = item_data.texture
 	tooltip_text = "%s\n%s" % [item_data.name,  item_data.description]
-	
+	active_slot_border.visible = slot_data.active
 	if slot_data.quantity > 1:
 		quantity_label.text = "x%s" % slot_data.quantity
 		quantity_label.show()
 	else:
 		quantity_label.hide()
+
+
+
+	
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton \

@@ -8,4 +8,5 @@ script = ExtResource("1_yvtnw")
 name = "Alarm Clock"
 description = "An alarm clock used to distract enemys."
 stackable = true
+equipable = false
 texture = ExtResource("2_eyr6t")

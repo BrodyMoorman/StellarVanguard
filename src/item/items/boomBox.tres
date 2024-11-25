@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDataRemote" load_steps=3 format=3 uid="uid://r0c61hx1fqm8"]
+
+[ext_resource type="Script" path="res://src/item/item_data_remote.gd" id="1_d1tkf"]
+[ext_resource type="Texture2D" uid="uid://dup0q6jlmlj0b" path="res://src/item/itemTextures/boomboxicon.png" id="2_r0qta"]
+
+[resource]
+script = ExtResource("1_d1tkf")
+heal_value = 15.0
+name = "Boom Box"
+description = "Can be triggered by transmitter. Attracts lots of enemys."
+stackable = false
+equipable = true
+texture = ExtResource("2_r0qta")

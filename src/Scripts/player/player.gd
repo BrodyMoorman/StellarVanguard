@@ -1,7 +1,11 @@
 extends CharacterBody2D
 
-@export var inventory_data: InventoryData
+signal transmit_frequency
 
+const BoomBox = preload("res://src/deployables/boom_box.tscn")
+const RF_RECIEVER = preload("res://src/deployables/rf_reciever.tscn")
+
+@export var inventory_data: InventoryData
 @export var speed: int = 300.0
 @export var jump_velocity: int = -400.0
 @export var crouch_multiplier: float = 0.5
@@ -20,10 +24,21 @@ extends CharacterBody2D
 @onready var left_attack_shape: CollisionShape2D = $left_attack_box/CollisionShape2D
 @onready var right_attack_box: Area2D = $right_attack_box
 @onready var right_attack_shape: CollisionShape2D = $right_attack_box/CollisionShape2D
+@onready var footstep_metal: AudioStreamPlayer = $AudioStreamPlayer2D/FootstepMetal
+@onready var bad_trumpet_trimmed: AudioStreamPlayer = $BadTrumpetTrimmed
+@onready var trumpet_right_collision: CollisionPolygon2D = $TrumpetRight/TrumpetRightCollision
+@onready var trumpet_left_collision: CollisionPolygon2D = $TrumpetLeft/TrumpetLeftCollision
+@onready var right_trumpet_vis: Control = $TrumpetRight/RightTrumpetVis
+@onready var left_trumpet_vis: Control = $TrumpetLeft/LeftTrumpetVis
+@onready var louis: AudioStreamPlayer = $Louis
+@onready var freq_label: Label = $CanvasLayer/Control/FreqLabel
+@onready var floor_detection: RayCast2D = $FloorDetection
+
 
 signal interact
 signal toggle_inventory
 
+#var world_node: Node = get_stack()
 
 var health: float = 50
 var max_health: float = 100
@@ -38,6 +53,13 @@ var player_hidden:bool = false
 var is_attacking: bool = false
 var in_animation:  bool = false
 var last_direction = 1
+var inventory_open: bool = false
+var active_item: String = ""
+var is_playing_trumpet = false
+var has_music_powers = false
+var active_index: int
+var current_frequency:int = 0
+var deployables = []
 
 
 
@@ -52,6 +74,7 @@ func _ready() -> void:
 func updateAnimation() -> void:
 	var idle = !velocity.x
 	animation_tree.set("parameters/conditions/Attacking", is_attacking)
+	animation_tree.set("parameters/conditions/Playing", is_playing_trumpet)
 	animation_tree.set("parameters/conditions/Idle", (idle && !is_crouching))
 	animation_tree.set("parameters/conditions/Walk", (!idle && !is_crouching))
 	animation_tree.set("parameters/conditions/CrouchIdle", (idle && is_crouching))
@@ -63,6 +86,7 @@ func updateAnimation() -> void:
 	animation_tree.set("parameters/CrouchWalking/blend_position", last_direction)
 	animation_tree.set("parameters/Idle/blend_position", last_direction)
 	animation_tree.set("parameters/Walk/blend_position", last_direction)
+	animation_tree.set("parameters/Trumpet/blend_position", last_direction)
 	var normalized
 
 func take_damage(damage: int) -> void:
@@ -75,6 +99,26 @@ func take_damage(damage: int) -> void:
 			health_bar.value = health
 			die()
 		health_bar.value = health
+
+func _set_active_item(item: ItemData, index):
+	active_item = item.name
+	active_index = index
+	if inventory_data.slot_datas[active_index].item_data is ItemDataRemote:
+		current_frequency = 1
+		freq_label.text = "%sMHz" % current_frequency
+		freq_label.show()
+	else:
+		freq_label.hide()
+
+func increment_freq()->void:
+	if current_frequency < 9:
+		current_frequency+=1
+	freq_label.text = "%sMHz" % current_frequency
+	
+func decrement_freq()->void:
+	if current_frequency > 2:
+		current_frequency-=1
+		freq_label.text = "%sMHz" % current_frequency
 
 func hide_player():
 	velocity.x = 0
@@ -101,9 +145,67 @@ func die() -> void:
 	animations.play("death")
 	# this is where we'll show the UI for respawn and etc
 
+func deploy_boombox()->void:
+	var new_boombox = BoomBox.instantiate()
+	new_boombox.frequency = current_frequency
+	if floor_detection.is_colliding():
+		var collision_point = floor_detection.get_collision_point()
+		collision_point.y -= 5
+		new_boombox.position = collision_point
+	else:
+		new_boombox.position = position
+	var deployables_node = get_parent().get_deployables_node()
+	deployables_node.add_child(new_boombox)
+	active_item = ""
+	inventory_data.slot_datas[active_index] = null
+	active_index = -1
+	inventory_data.updateInv()
+func deploy_rf_reciever()->void:
+	var new_rf = RF_RECIEVER.instantiate()
+	new_rf.frequency = current_frequency
+	if floor_detection.is_colliding():
+		var collision_point = floor_detection.get_collision_point()
+		collision_point.y -= 5
+		new_rf.position = collision_point
+	else:
+		new_rf.position = position
+	var deployables_node = get_parent().get_deployables_node()
+	deployables_node.add_child(new_rf)
+	active_item = ""
+	inventory_data.slot_datas[active_index] = null
+	active_index = -1
+	inventory_data.updateInv()
+
+func transmit_signal() -> void:
+	for deployable in get_parent().get_deployables_node().get_children():
+		if deployable.frequency == current_frequency:
+			deployable.toggle()
+		
+
 
 func attack() -> void:
 	is_attacking = true
+
+func give_music_powers() -> void:
+	has_music_powers = true
+
+func start_playing_trumpet():
+	is_playing_trumpet = true
+	if(has_music_powers):
+		if(!louis.playing):
+			louis.play(1.0)
+	else:
+		if(!bad_trumpet_trimmed.playing):
+			bad_trumpet_trimmed.play()
+	
+func stop_playing_trumpet():
+	is_playing_trumpet = false
+	bad_trumpet_trimmed.stop()
+	louis.stop()
+	trumpet_right_collision.disabled = true
+	trumpet_left_collision.disabled = true
+	right_trumpet_vis.visible = false
+	left_trumpet_vis.visible = false
 
 func heal(heal_value: float) -> void:
 	if health + heal_value > 100.0:
@@ -111,6 +213,20 @@ func heal(heal_value: float) -> void:
 	else:
 		health += heal_value
 	health_bar.value = health
+
+func _play_footstep_audio(volume:int = -17) -> void:
+	if(volume != -17):
+		footstep_metal.pitch_scale = randf_range(0.9, 1.1)
+		footstep_metal.volume_db = volume
+		footstep_metal.play()
+	else:
+		if is_on_floor():
+			footstep_metal.pitch_scale = randf_range(0.9, 1.1)
+			if(is_crouching):
+				footstep_metal.volume_db = -25
+			else:
+				footstep_metal.volume_db = -17
+			footstep_metal.play()
 
 
 func _physics_process(delta: float) -> void:
@@ -121,6 +237,19 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 		was_falling = true
 		falling_speed = velocity.y
+		
+	if is_playing_trumpet:
+		if last_direction > 0:
+			trumpet_right_collision.disabled = false
+			trumpet_left_collision.disabled = true
+			right_trumpet_vis.visible = true
+			left_trumpet_vis.visible = false
+		else:
+			trumpet_right_collision.disabled = true
+			trumpet_left_collision.disabled = false
+			right_trumpet_vis.visible = false
+			left_trumpet_vis.visible = true
+
 
 	
 	# Handle jump.
@@ -141,13 +270,45 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("interact"):
 		interact.emit()
+		
 
 	if Input.is_action_just_pressed("attack"):
-		if(!player_hidden):
-			attack()
+		if(!inventory_open):
+			if(!player_hidden):
+				if(active_item == "Actual wrench"):
+					attack()
+				if(active_item == "Boom Box"):
+					deploy_boombox()
+				if(active_item=="RF Reciever"):
+					deploy_rf_reciever()
+			if(active_item == "RF Transmitter"):
+				transmit_signal()
+			
 	
 	if Input.is_action_just_pressed("inventory"):
 		toggle_inventory.emit()
+		inventory_open = !inventory_open
+	
+	if Input.is_action_pressed("attack"):
+		if(!player_hidden && !inventory_open):
+			if(active_item == "Trumpet"):
+				start_playing_trumpet()
+	
+	if Input.is_action_just_released("attack"):
+		if(active_item == "Trumpet"):
+			stop_playing_trumpet()
+	if Input.is_action_just_pressed("increment_freq"):
+		if inventory_data.slot_datas[active_index] && inventory_data.slot_datas[active_index].item_data is ItemDataRemote:
+			increment_freq()
+			
+			
+
+	if Input.is_action_just_pressed("decrement_freq"):
+		if inventory_data.slot_datas[active_index] && inventory_data.slot_datas[active_index].item_data is ItemDataRemote:
+			decrement_freq()
+			
+
+	
 		
 		
 		
@@ -168,6 +329,7 @@ func _physics_process(delta: float) -> void:
 				sound_area.shape.set_radius(clamp((falling_speed* fall_landing_radius_factor),min_landing_radius,max_landing_radius))
 			else:
 				sound_area.shape.set_radius(clamp(((falling_speed* fall_landing_radius_factor)*0.5),min_landing_radius,max_landing_radius))
+			_play_footstep_audio(-10)
 			was_falling= false
 			falling_speed = 0.0
 		noise_visualization.set_radius(sound_area.shape.radius)

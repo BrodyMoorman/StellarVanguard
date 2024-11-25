@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDataEquipable" load_steps=3 format=3 uid="uid://7sd778eekhoo"]
+
+[ext_resource type="Script" path="res://src/item/item_data_equipable.gd" id="1_m5gwm"]
+[ext_resource type="Texture2D" uid="uid://dvkb4eny1ipi4" path="res://src/item/itemTextures/wrench.png" id="2_c572o"]
+
+[resource]
+script = ExtResource("1_m5gwm")
+heal_value = 15.0
+name = "Actual wrench"
+description = "This is a real wrench"
+stackable = false
+equipable = true
+texture = ExtResource("2_c572o")

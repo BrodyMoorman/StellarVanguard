@@ -6,11 +6,14 @@ signal inventory_interact(inventory_data: InventoryData, index:int, button:int)
 
 @export var slot_datas: Array[SlotData]
 
+var activeIndex: int = -1
+
 func grab_slot_data(index: int ) ->  SlotData:
 	var slot_data = slot_datas[index]
 	
 	if slot_data:
 		slot_datas[index] = null
+		slot_data.active = false
 		inventory_updated.emit(self)
 		return slot_data
 	else:
@@ -54,8 +57,12 @@ func use_slot_data(index) -> void:
 		slot_data.quantity -= 1
 		if slot_data.quantity < 1:
 			slot_datas[index] = null
-	print(slot_data.item_data.name)
-	PlayerManager.use_slot_data(slot_data)
+	if slot_data.item_data is ItemDataEquipable && index < 6:
+		if(activeIndex > -1 and slot_datas[activeIndex]):
+			slot_datas[activeIndex].active = false
+		slot_data.active = true
+		activeIndex = index
+	PlayerManager.use_slot_data(slot_data, index)
 	inventory_updated.emit(self)
 		
 func pickup_slot_data(slot_data: SlotData) -> bool:
@@ -75,3 +82,6 @@ func pickup_slot_data(slot_data: SlotData) -> bool:
 		
 func on_slot_clicked(index:int, button:int) -> void:
 	inventory_interact.emit(self, index, button)
+	
+func updateInv() -> void:
+	inventory_updated.emit(self)

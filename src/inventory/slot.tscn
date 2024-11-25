@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dm4kvr0i12hdt"]
+[gd_scene load_steps=5 format=3 uid="uid://dm4kvr0i12hdt"]
 
 [ext_resource type="Script" path="res://src/inventory/slot.gd" id="1_swyjb"]
+[ext_resource type="Texture2D" uid="uid://chiyjlc3seisg" path="res://src/item/itemTextures/activeSlot.png" id="2_gsesc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_51avd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kt2uo"]
 
 [node name="Slot" type="PanelContainer"]
 custom_minimum_size = Vector2(64, 64)
@@ -9,6 +14,7 @@ offset_bottom = 40.0
 script = ExtResource("1_swyjb")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+material = SubResource("ShaderMaterial_51avd")
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -16,6 +22,7 @@ theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+material = SubResource("ShaderMaterial_kt2uo")
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
@@ -28,5 +35,18 @@ size_flags_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 text = "x99"
+
+[node name="ActiveSlotBorder" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_gsesc")
+expand_mode = 2
+
+[node name="FrequencyLabel" type="Label" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "1Mhz"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
