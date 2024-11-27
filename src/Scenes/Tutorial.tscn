@@ -694,6 +694,7 @@ text = "Press the spacebar to
 jump across the ledges."
 visible_characters = 0
 visible_ratio = 0.0
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="JumpingTutorial"]
 libraries = {

@@ -144,7 +144,7 @@ func unhide_player():
 func die() -> void:
 	dead = true
 	velocity = Vector2.ZERO
-	animations.play("death")
+	get_tree().reload_current_scene()
 	# this is where we'll show the UI for respawn and etc
 
 func deploy_boombox()->void:
@@ -336,11 +336,16 @@ func _physics_process(delta: float) -> void:
 	if(!player_hidden):
 		if direction:
 			last_direction = direction
-			velocity.x = direction * speed* speed_multiplier
-			if(is_crouching):
-				sound_area.shape.set_radius(crouching_sound_radius)
+			if(is_on_floor()):
+				velocity.x = direction * speed* speed_multiplier
 			else:
-				sound_area.shape.set_radius(walking_sound_radius)
+				velocity.x = direction * speed* 1.0
+			if(is_on_floor()):
+				if(is_crouching):
+					sound_area.shape.set_radius(crouching_sound_radius)
+				else:
+					sound_area.shape.set_radius(walking_sound_radius)
+			else: sound_area.shape.set_radius(move_toward(sound_area.shape.radius, 8, 5))
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 			sound_area.shape.set_radius(move_toward(sound_area.shape.radius, 8, 5))

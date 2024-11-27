@@ -115,8 +115,8 @@ size = Vector2(4.5, 3)
 
 [node name="Alien_enemy_1" type="CharacterBody2D" groups=["damageable"]]
 z_index = 2
-collision_layer = 536887424
-collision_mask = 16513
+collision_layer = 536871040
+collision_mask = 16385
 script = ExtResource("1_d3v74")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -166,5 +166,14 @@ offset_right = 37.0
 offset_bottom = 13.0
 scale = Vector2(0.284058, 0.36645)
 text = "❗"
+
+[node name="QuestionIndicator" type="Label" parent="."]
+visible = false
+offset_left = -3.0
+offset_top = -10.0
+offset_right = 37.0
+offset_bottom = 13.0
+scale = Vector2(0.284058, 0.36645)
+text = "❓"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

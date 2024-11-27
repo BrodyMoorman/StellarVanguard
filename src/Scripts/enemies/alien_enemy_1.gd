@@ -5,8 +5,8 @@ const alienMatterItemData = preload("res://src/item/items/alienMatter.tres")
 const JUMP_VELOCITY = -400.0
 
 @export var patrol_speed: int = 30
-@export var chase_speed: int = 100
-@export var jump_velocity: float = -400.0
+@export var chase_speed: int = 150
+@export var jump_velocity: float = -450.0
 @export var max_jump_attempts: int = 3
 @export var starting_health: int = 100
 @export var detection_range: float = 50
@@ -14,7 +14,7 @@ const JUMP_VELOCITY = -400.0
 @export var attack_damage: int = 10
 @export var attack_cooldown: float = 2  # Time between attacks
 @export var noise_detection_range: float = 150.0
-@export var noise_timeout: float = 0.1  # How long to wait at the last known location before resuming patrol
+@export var noise_timeout: float = 3.0  # How long to wait at the last known location before resuming patrol
 
 @onready var player = null
 
@@ -39,7 +39,7 @@ var reached_location: bool = false  #flag to track if the location has been reac
 var jump_attempts: int = 0
 var is_jumping: bool = false
 
-
+@onready var question_indicator: Label = $QuestionIndicator
 @onready var alert_indicator = $AlertIndicator
 @onready var raycast = $RayCast2D
 @onready var attack_area = $Area2D
@@ -126,17 +126,6 @@ func patrol() -> void:
 func chase_player() -> void:
 	#todo: Make sure it flips direction at walls or can jump, as necessary
 	if player:
-		var direction_to_player = sign(player.position.x - position.x)
-		velocity.x = direction_to_player * chase_speed
-		
-		var prev_face = facing_right
-		if direction_to_player > 0:
-			facing_right = true
-		else:
-			facing_right = false
-		
-		if prev_face != facing_right:
-			scale.x = -scale.x
 			
 		if global_position.distance_to(player.global_position) <= attack_range and can_attack:
 			perform_attack()
@@ -158,11 +147,14 @@ func investigate_noise() -> void:
 	if not reached_location:  # Only move toward the location if it hasn't been reached
 		if position.distance_to(last_known_player_position) > 10:  # Some threshold for stopping
 			var direction_to_location = (last_known_player_position - position).normalized()
+			if (last_known_player_position.x < position.x && facing_right):
+				facing_right = !facing_right
+				scale.x = -scale.x
+			if (last_known_player_position.x > position.x && !facing_right):
+				facing_right = !facing_right
+				scale.x = -scale.x
+			
 			velocity.x = direction_to_location.x * chase_speed
-			if velocity.x < 0:
-				scale.x = -1* abs(scale.x)
-			if velocity.x > 0:
-				scale.x = abs(scale.x)
 			if not is_on_floor():
 				velocity += get_gravity() * get_physics_process_delta_time()
 			

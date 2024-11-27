@@ -6,11 +6,18 @@ extends Node2D
 @onready var power_down: AudioStreamPlayer = $AudioStreamPlayer2D/"Power-down"
 @onready var power_up: AudioStreamPlayer = $AudioStreamPlayer2D/"Power-up"
 @onready var zap: AudioStreamPlayer = $AudioStreamPlayer2D/Zap
+@onready var laser: Node2D = $Laser
+
+@export var laser_offset:int = 0
+@export var timed:bool = false
+@export var timer_len:float = 2.0
+@onready var timer: Timer = $Timer
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	interaction_area.interact = Callable(self, "_on_interact")
+	laser.translate(Vector2(laser_offset,0))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,10 +26,13 @@ func _process(delta: float) -> void:
 
 
 func _on_interact():
-	if !area_2d.visible:
-		power_up.play()
-	else:
+	if timed:
 		power_down.play()
+	else:
+		if !area_2d.visible:
+			power_up.play()
+		else:
+			power_down.play()
 	
 
 
@@ -40,3 +50,9 @@ func _on_powerup_finished() -> void:
 func _on_powerdown_finished() -> void:
 	area_2d.visible = false
 	collision_shape_2d.disabled = true
+	if(timed):
+		timer.start(timer_len)
+
+
+func _on_timer_timeout() -> void:
+	power_up.play()
