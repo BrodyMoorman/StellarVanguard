@@ -35,6 +35,8 @@ const ALARM_CLOCK = preload("res://src/deployables/alarm_clock.tscn")
 @onready var freq_label: Label = $CanvasLayer/Control/FreqLabel
 @onready var floor_detection: RayCast2D = $FloorDetection
 @onready var radiobeep: AudioStreamPlayer = $Radiobeep
+@onready var pauseMenu = $Camera2D/UI/Pause_Screen
+#@onready var playButton: Button = find_node()
 
 
 signal interact
@@ -64,6 +66,7 @@ var current_frequency:int = 0
 var deployables = []
 var frames_since_on_floor:int = 0
 var allow_jump:bool = true
+var paused:bool = false
 
 
 
@@ -74,6 +77,10 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
 	
+
+func _process(delta):
+	if Input.is_action_just_pressed("pause_game"):
+		pauseGame()
 
 func updateAnimation() -> void:
 	var idle = !velocity.x
@@ -397,3 +404,18 @@ func _on_right_attack_box_area_entered(area: Area2D) -> void:
 func _on_left_attack_box_area_entered(area: Area2D) -> void:
 	if(area.get_parent().is_in_group("damageable")):
 		area.get_parent().take_damage()
+
+# for when the player wants to pause or exit the game
+func pauseGame():
+	if paused:
+		pauseMenu.hide()
+		Engine.time_scale = 1
+		get_tree().paused = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	else:
+		pauseMenu.show()
+		Engine.time_scale = 0
+		get_tree().paused = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	paused = !paused

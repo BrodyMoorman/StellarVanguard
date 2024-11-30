@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://8wuhdqxfvk73"]
 
-[ext_resource type="Script" path="res://src/Scenes/settings_menu.gd" id="1_cv5m6"]
-[ext_resource type="Texture2D" uid="uid://cmkvtdnn44yu8" path="res://Assets/Images/space background.jpg" id="2_vpkw6"]
+[ext_resource type="Script" path="res://src/Scripts/menus/settings_menu.gd" id="1_cv5m6"]
+[ext_resource type="Texture2D" uid="uid://cmkvtdnn44yu8" path="res://Assets/Images/menu art/space background.jpg" id="2_vpkw6"]
 
 [node name="SettingsMenu" type="Control"]
 layout_mode = 3
@@ -49,7 +49,7 @@ horizontal_alignment = 1
 [node name="HSlider" type="HSlider" parent="VBoxContainer2"]
 layout_mode = 2
 min_value = 1.0
-value = 1.0
+value = 100.0
 
 [node name="Blank Label (spacing)" type="Label" parent="VBoxContainer2"]
 layout_mode = 2
@@ -61,6 +61,7 @@ horizontal_alignment = 1
 
 [node name="Volume Slider" type="HSlider" parent="VBoxContainer2"]
 layout_mode = 2
+value = 100.0
 ticks_on_borders = true
 
 [node name="Mute Label" type="Label" parent="VBoxContainer2"]
