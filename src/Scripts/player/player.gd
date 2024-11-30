@@ -289,6 +289,10 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
 		interact.emit()
 		
+	if Input.is_action_just_pressed("test_key"):
+		get_tree().change_scene_to_file("res://src/Scenes/Tutorial.tscn")
+
+		
 
 	if Input.is_action_just_pressed("attack"):
 		if(!inventory_open):

@@ -1,6 +1,7 @@
-[gd_scene load_steps=51 format=4 uid="uid://dnqd1m0fa1wdd"]
+[gd_scene load_steps=56 format=4 uid="uid://dnqd1m0fa1wdd"]
 
 [ext_resource type="Texture2D" uid="uid://cyqfiydc0grwu" path="res://Assets/Tiles/Science Lab/level_tileset.png" id="1_hsjnq"]
+[ext_resource type="Script" path="res://src/Scenes/game.gd" id="1_r8s6g"]
 [ext_resource type="PackedScene" uid="uid://bg6re0ge1bbcc" path="res://src/Scenes/player.tscn" id="2_d3aij"]
 [ext_resource type="Texture2D" uid="uid://cdwey64rba585" path="res://Assets/Tiles/Castle Platformer/twilight-tiles2.png" id="2_v3vba"]
 [ext_resource type="Script" path="res://src/teleport.gd" id="5_n2bnf"]
@@ -9,8 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://c26e78jashk4w" path="res://src/Scenes/alien_enemy_1.tscn" id="7_yt5vm"]
 [ext_resource type="Script" path="res://src/Scripts/popup_text.gd" id="8_4b44r"]
 [ext_resource type="PackedScene" uid="uid://c2g1kki5yj0sx" path="res://src/Scenes/hackable_laser.tscn" id="9_low14"]
+[ext_resource type="Script" path="res://src/inventory/inventory_interface.gd" id="11_brrxi"]
+[ext_resource type="PackedScene" uid="uid://cp62ajemos4le" path="res://src/inventory/inventory.tscn" id="12_kqkrd"]
+[ext_resource type="PackedScene" uid="uid://dm4kvr0i12hdt" path="res://src/inventory/slot.tscn" id="13_q63fs"]
+[ext_resource type="PackedScene" uid="uid://dnahdtngb12u3" path="res://src/inventory/hot_bar_inventory.tscn" id="14_8jnxt"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rlhlh"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y61q1"]
 texture = ExtResource("1_hsjnq")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -138,7 +143,7 @@ texture_region_size = Vector2i(32, 32)
 7:8/0 = 0
 8:8/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n2v4s"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5j1o8"]
 texture = ExtResource("2_v3vba")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -193,8 +198,8 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_whtfw"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_rlhlh")
-sources/1 = SubResource("TileSetAtlasSource_n2v4s")
+sources/0 = SubResource("TileSetAtlasSource_y61q1")
+sources/1 = SubResource("TileSetAtlasSource_5j1o8")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e8rfl"]
 texture = ExtResource("1_hsjnq")
@@ -594,6 +599,7 @@ resource_local_to_scene = true
 size = Vector2(32, 66)
 
 [node name="Tutorial" type="Node2D"]
+script = ExtResource("1_r8s6g")
 
 [node name="Player" parent="." instance=ExtResource("2_d3aij")]
 position = Vector2(18.04, 10.195)
@@ -861,6 +867,41 @@ position = Vector2(3564, 618)
 
 [node name="HackableTerminal" parent="." instance=ExtResource("9_low14")]
 position = Vector2(4657, 465)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_brrxi")
+
+[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("12_kqkrd")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("13_q63fs")]
+visible = false
+modulate = Color(1, 1, 1, 0.388235)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="HotBarInventory" parent="UI" instance=ExtResource("14_8jnxt")]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 430.0
+offset_bottom = 90.0
+
+[node name="Deployables" type="Node2D" parent="."]
 
 [connection signal="body_entered" from="EndOfFirstRoom" to="EndOfFirstRoom" method="_on_body_entered"]
 [connection signal="body_entered" from="FallingFromIntroParkour" to="FallingFromIntroParkour" method="_on_body_entered"]
