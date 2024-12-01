@@ -2,7 +2,6 @@ extends Control
 
 #variables
 var master_vol = AudioServer.get_bus_index("Master")
-@onready var pauseMenu = $Camera2D/UI/Pause_Screen
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

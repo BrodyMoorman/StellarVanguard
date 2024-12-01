@@ -69,7 +69,6 @@ var allow_jump:bool = true
 var paused:bool = false
 
 
-
 func _ready() -> void:
 	add_to_group("Player")
 	PlayerManager.player = self
@@ -81,6 +80,11 @@ func _ready() -> void:
 func _process(delta):
 	if Input.is_action_just_pressed("pause_game"):
 		pauseGame()
+	
+	if Engine.time_scale != 0:
+		paused = !paused
+		pauseMenu.hide()
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func updateAnimation() -> void:
 	var idle = !velocity.x
@@ -407,15 +411,8 @@ func _on_left_attack_box_area_entered(area: Area2D) -> void:
 
 # for when the player wants to pause or exit the game
 func pauseGame():
-	if paused:
-		pauseMenu.hide()
-		Engine.time_scale = 1
-		get_tree().paused = false
-		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	else:
-		pauseMenu.show()
-		Engine.time_scale = 0
-		get_tree().paused = true
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
 	paused = !paused
+	pauseMenu.show()
+	Engine.time_scale = 0
+	get_tree().paused = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

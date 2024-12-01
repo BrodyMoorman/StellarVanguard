@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c1kfofxcoh10v"]
 
-[ext_resource type="Script" path="res://src/Scenes/pause_screen.gd" id="1_ybsjs"]
+[ext_resource type="Script" path="res://src/Scripts/menus/pause_screen.gd" id="1_ybsjs"]
 
 [node name="Pause_Screen" type="Control"]
 process_mode = 3
@@ -15,13 +15,17 @@ grow_vertical = 2
 script = ExtResource("1_ybsjs")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.997
+offset_right = 2.0
+offset_bottom = -0.0560303
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
 top_level = true
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="Resume Game" type="Button" parent="MarginContainer/VBoxContainer2"]
 layout_mode = 2
@@ -31,14 +35,15 @@ text = "Resume Game"
 layout_mode = 2
 text = "Select Level"
 
-[node name="Options" type="Button" parent="MarginContainer/VBoxContainer2"]
+[node name="Mute" type="Button" parent="MarginContainer/VBoxContainer2"]
 layout_mode = 2
-text = "Options"
+text = "Mute"
 
 [node name="Quit Game" type="Button" parent="MarginContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Quit Game"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer2/Resume Game" to="." method="_on_resume_game_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer2/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/Select Level" to="." method="_on_select_level_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/Mute" to="." method="_on_mute_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer2/Quit Game" to="." method="_on_quit_game_pressed"]
