@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=3 format=3 uid="uid://c62edlokqg3gc"]
+
+[ext_resource type="Script" path="res://src/item/item_data_consumable.gd" id="1_idctp"]
+[ext_resource type="Texture2D" uid="uid://trrkjv8o10aw" path="res://src/item/itemTextures/magicSheetMusic.png" id="2_4ni6y"]
+
+[resource]
+script = ExtResource("1_idctp")
+heal_value = 15.0
+name = "Alien Sheet Music"
+description = "A page of sheet music containg a classic from the aliens favorite musician from earth  ̶R̶i̶c̶k̶ ̶A̶s̶t̶l̶e̶y̶ Louis Armstrong. "
+stackable = true
+equipable = false
+texture = ExtResource("2_4ni6y")

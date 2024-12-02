@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cv8xpqpr1ibr8"]
+
+[ext_resource type="Texture2D" uid="uid://ci4ke5ki4n6ik" path="res://Assets/Sprites/traders/ScientistTrader.png" id="1_y33gy"]
+[ext_resource type="PackedScene" uid="uid://d4a4dps0qsi5y" path="res://src/interaction/interactionArea/interactionArea.tscn" id="2_7uqno"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_otowe"]
+size = Vector2(37, 24)
+
+[node name="Trader" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("1_y33gy")
+
+[node name="InteractionArea" parent="." instance=ExtResource("2_7uqno")]
+action_name = "talk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(-1.5, 0)
+shape = SubResource("RectangleShape2D_otowe")

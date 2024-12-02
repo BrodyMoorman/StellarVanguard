@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="InventoryData" load_steps=14 format=3 uid="uid://tsg215e4d0me"]
+
+[ext_resource type="Script" path="res://src/inventory/inventory_data.gd" id="1_ke65o"]
+[ext_resource type="Script" path="res://src/inventory/slot_data.gd" id="2_p6ajq"]
+[ext_resource type="Resource" uid="uid://7sd778eekhoo" path="res://src/item/items/realWrench.tres" id="3_d81iu"]
+[ext_resource type="Resource" uid="uid://cuyqx7hkbsldg" path="res://src/item/items/equipableAlarmClock.tres" id="4_00n7v"]
+[ext_resource type="Resource" uid="uid://pp0pq2o10tke" path="res://src/item/items/healthShot.tres" id="5_rtq0q"]
+[ext_resource type="Resource" uid="uid://wcbcu0gfcuww" path="res://src/item/items/trumpet.tres" id="6_iw82p"]
+[ext_resource type="Resource" uid="uid://k3iuxvcqp3se" path="res://src/item/items/alienMatter.tres" id="6_rq5e7"]
+
+[sub_resource type="Resource" id="Resource_r588a"]
+script = ExtResource("2_p6ajq")
+item_data = ExtResource("3_d81iu")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_5nfn6"]
+script = ExtResource("2_p6ajq")
+item_data = ExtResource("4_00n7v")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_exgy2"]
+script = ExtResource("2_p6ajq")
+item_data = ExtResource("4_00n7v")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_oqgc6"]
+script = ExtResource("2_p6ajq")
+item_data = ExtResource("5_rtq0q")
+quantity = 5
+
+[sub_resource type="Resource" id="Resource_y5vrx"]
+script = ExtResource("2_p6ajq")
+item_data = ExtResource("6_iw82p")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_wgxy7"]
+script = ExtResource("2_p6ajq")
+item_data = ExtResource("6_rq5e7")
+quantity = 5
+
+[resource]
+script = ExtResource("1_ke65o")
+slot_datas = Array[ExtResource("2_p6ajq")]([SubResource("Resource_r588a"), SubResource("Resource_5nfn6"), SubResource("Resource_exgy2"), SubResource("Resource_oqgc6"), SubResource("Resource_y5vrx"), null, null, SubResource("Resource_wgxy7"), null, null, null, null, null, null, null, null, null, null])

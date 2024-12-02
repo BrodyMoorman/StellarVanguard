@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://xar0erfs22h8"]
+
+[ext_resource type="Texture2D" uid="uid://cmkvtdnn44yu8" path="res://Assets/Images/space background.jpg" id="1_utiyi"]
+[ext_resource type="PackedScene" uid="uid://s3vkyk4tuyr6" path="res://src/Scenes/level_button.tscn" id="3_38lsw"]
+
+[node name="Level Select" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+light_mask = 2
+visibility_layer = 2
+layout_mode = 0
+offset_right = 1164.0
+offset_bottom = 673.0
+texture = ExtResource("1_utiyi")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 42.0
+offset_right = 1112.0
+offset_bottom = 610.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Select Level"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="LevelButton" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("3_38lsw")]
+layout_mode = 2
+text = "Tutorial"
+level_path = "res://src/Scenes/Levels/Tutorial.tscn"
+
+[node name="LevelButton2" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("3_38lsw")]
+layout_mode = 2
+level_path = "res://src/Scenes/Levels/Level1.tscn"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDataEquipable" load_steps=3 format=3 uid="uid://cuyqx7hkbsldg"]
+
+[ext_resource type="Script" path="res://src/item/item_data_equipable.gd" id="1_p0024"]
+[ext_resource type="Texture2D" uid="uid://c6ouvmuf5y8rd" path="res://src/item/itemTextures/alarmClock.png" id="2_8d15v"]
+
+[resource]
+script = ExtResource("1_p0024")
+heal_value = 15.0
+name = "Alarm Clock"
+description = "Distracts enemys for 10s, has a small delay before it starts."
+stackable = false
+equipable = true
+texture = ExtResource("2_8d15v")
