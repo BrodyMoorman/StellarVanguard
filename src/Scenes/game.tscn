@@ -21,7 +21,7 @@
 [ext_resource type="Resource" uid="uid://r0c61hx1fqm8" path="res://src/item/items/boomBox.tres" id="19_q18nf"]
 [ext_resource type="Resource" uid="uid://do5hhsq668umw" path="res://src/item/items/rfReciever.tres" id="21_oyw62"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p6q7m"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cbk22"]
 texture = ExtResource("1_rvudh")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.54074, -8, 8, -8, 8, 2.75, 3.18198, 5.12652, -3.35876, 5.3033, -6.18718, 2.82843, -6.54074, -1.23744)
@@ -377,7 +377,7 @@ texture = ExtResource("1_rvudh")
 4:4/0 = 0
 4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, -16.75, -7.75, -16.25, 8, 8, 8)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ktmix"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3rot1"]
 texture = ExtResource("2_s7qvv")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.54074, -8, 8, -8, 8, 2.75, 3.18198, 5.12652, -3.35876, 5.3033, -6.18718, 2.82843, -6.54074, -1.23744)
@@ -597,8 +597,8 @@ texture = ExtResource("2_s7qvv")
 
 [sub_resource type="TileSet" id="TileSet_bi4x2"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_p6q7m")
-sources/1 = SubResource("TileSetAtlasSource_ktmix")
+sources/0 = SubResource("TileSetAtlasSource_cbk22")
+sources/1 = SubResource("TileSetAtlasSource_3rot1")
 
 [sub_resource type="Resource" id="Resource_02ihb"]
 script = ExtResource("14_papq7")
@@ -651,6 +651,8 @@ position = Vector2(135, 30)
 position = Vector2(-25, 33)
 
 [node name="UI" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 0
 
 [node name="InventoryInterface" type="Control" parent="UI"]
 visible = false
@@ -678,6 +680,7 @@ offset_right = 64.0
 offset_bottom = 64.0
 
 [node name="HotBarInventory" parent="UI" instance=ExtResource("12_yah1f")]
+visibility_layer = 3
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 430.0

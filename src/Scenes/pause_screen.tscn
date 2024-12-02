@@ -31,10 +31,10 @@ grow_vertical = 2
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
 top_level = true
 layout_mode = 2
-offset_left = 450.0
-offset_top = 150.0
-offset_right = 570.0
-offset_bottom = 286.0
+offset_left = 572.0
+offset_top = 266.0
+offset_right = 692.0
+offset_bottom = 402.0
 size_flags_horizontal = 4
 alignment = 1
 

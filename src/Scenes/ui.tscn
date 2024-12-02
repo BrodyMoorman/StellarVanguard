@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dram0hg8224ca" path="res://src/Scenes/player_death.tscn" id="2_bydud"]
 
 [node name="UI" type="CanvasLayer"]
+process_mode = 3
+follow_viewport_enabled = true
 
 [node name="Pause_Screen" parent="." instance=ExtResource("2_5unaw")]
 anchors_preset = 8
