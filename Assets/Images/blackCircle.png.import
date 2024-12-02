@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmkvtdnn44yu8"
-path="res://.godot/imported/space background.jpg-47acdcb4205d0b9a03ba928d91698090.ctex"
+uid="uid://g0mb586i00uf"
+path="res://.godot/imported/blackCircle.png-450cf0c8bdaf551d7eb8e06a06d310b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/menu art/space background.jpg"
-dest_files=["res://.godot/imported/space background.jpg-47acdcb4205d0b9a03ba928d91698090.ctex"]
+source_file="res://Assets/Images/blackCircle.png"
+dest_files=["res://.godot/imported/blackCircle.png-450cf0c8bdaf551d7eb8e06a06d310b1.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

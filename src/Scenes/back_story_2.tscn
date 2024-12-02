@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://di7dbchwtjoym"]
+
+[ext_resource type="Texture2D" uid="uid://dlchtscd53qxh" path="res://Assets/Images/earth and moon.jpg" id="1_vjcbu"]
+[ext_resource type="PackedScene" uid="uid://s3vkyk4tuyr6" path="res://src/Scenes/level_button.tscn" id="2_evj57"]
+
+[node name="BackStory2" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+light_mask = 2
+visibility_layer = 2
+offset_right = 1164.0
+offset_bottom = 673.0
+texture = ExtResource("1_vjcbu")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Background"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 5.0
+offset_right = 1139.0
+offset_bottom = 54.0
+text = "Unfortunately for humanity, the Oxaxians were defeated before they could destroy the hubble telescope. The Solarite now knew that we existed,
+and they were searching for us. "
+
+[node name="Next Button" parent="Background" instance=ExtResource("2_evj57")]
+offset_left = 942.0
+offset_top = 508.0
+offset_right = 1091.0
+offset_bottom = 539.0
+text = "Next"
+level_path = "res://src/Scenes/back_story_3.tscn"

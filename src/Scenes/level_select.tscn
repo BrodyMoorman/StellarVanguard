@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://xar0erfs22h8"]
 
-[ext_resource type="Texture2D" uid="uid://cmkvtdnn44yu8" path="res://Assets/Images/menu art/space background.jpg" id="1_utiyi"]
+[ext_resource type="Texture2D" uid="uid://cmkvtdnn44yu8" path="res://Assets/Images/space background.jpg" id="1_utiyi"]
 [ext_resource type="PackedScene" uid="uid://s3vkyk4tuyr6" path="res://src/Scenes/level_button.tscn" id="3_38lsw"]
 
 [node name="Level Select" type="Control"]

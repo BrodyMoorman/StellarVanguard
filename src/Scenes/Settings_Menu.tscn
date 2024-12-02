@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://8wuhdqxfvk73"]
 
 [ext_resource type="Script" path="res://src/Scripts/menus/settings_menu.gd" id="1_cv5m6"]
-[ext_resource type="Texture2D" uid="uid://cmkvtdnn44yu8" path="res://Assets/Images/menu art/space background.jpg" id="2_vpkw6"]
+[ext_resource type="Texture2D" uid="uid://cmkvtdnn44yu8" path="res://Assets/Images/space background.jpg" id="2_vpkw6"]
 
 [node name="SettingsMenu" type="Control"]
 layout_mode = 3
