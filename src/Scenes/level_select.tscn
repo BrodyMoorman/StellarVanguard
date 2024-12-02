@@ -41,3 +41,9 @@ columns = 3
 
 [node name="LevelButton" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("3_38lsw")]
 layout_mode = 2
+text = "Tutorial"
+level_path = "res://src/Scenes/Levels/Tutorial.tscn"
+
+[node name="LevelButton2" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("3_38lsw")]
+layout_mode = 2
+level_path = "res://src/Scenes/Levels/Level1.tscn"
