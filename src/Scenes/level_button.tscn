@@ -7,6 +7,6 @@ offset_right = 8.0
 offset_bottom = 8.0
 text = "Level 1"
 script = ExtResource("1_acafo")
-level_path = "res://src/Scenes/Levels/Tutorial.tscn"
+level_path = "res://src/Scenes/game.tscn"
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

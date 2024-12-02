@@ -24,7 +24,6 @@ func _on_quit_game_pressed() -> void:
 func _on_mute_pressed() -> void:
 	AudioServer.set_bus_mute(master_vol, not AudioServer.is_bus_mute(master_vol))
 
-
 func _on_select_level_pressed() -> void:
 	get_tree().paused = false
 	Engine.time_scale = 1

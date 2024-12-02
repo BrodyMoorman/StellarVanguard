@@ -35,7 +35,8 @@ const ALARM_CLOCK = preload("res://src/deployables/alarm_clock.tscn")
 @onready var freq_label: Label = $CanvasLayer/Control/FreqLabel
 @onready var floor_detection: RayCast2D = $FloorDetection
 @onready var radiobeep: AudioStreamPlayer = $Radiobeep
-@onready var pauseMenu = $Camera2D/UI/Pause_Screen
+@onready var pauseMenu = $UI/Pause_Screen
+@onready var respawn = $UI/Player_Death_Screen
 #@onready var playButton: Button = find_node()
 
 
@@ -159,6 +160,9 @@ func die() -> void:
 	velocity = Vector2.ZERO
 	animations.play("death")
 	# this is where we'll show the UI for respawn and etc
+	Engine.time_scale = 0
+	respawn.show()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func deploy_boombox()->void:
 	var new_boombox = BoomBox.instantiate()
@@ -416,3 +420,6 @@ func pauseGame():
 	Engine.time_scale = 0
 	get_tree().paused = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func respawnScreen():
+	respawn.show()
