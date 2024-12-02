@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmurdmp8w3jex"]
+
+[ext_resource type="Texture2D" uid="uid://dd8wq8m0mypdd" path="res://Assets/Images/alien world.jpg" id="1_en7f3"]
+[ext_resource type="PackedScene" uid="uid://s3vkyk4tuyr6" path="res://src/Scenes/level_button.tscn" id="2_pfvjq"]
+
+[node name="BackStory1" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+light_mask = 2
+visibility_layer = 2
+offset_right = 1164.0
+offset_bottom = 673.0
+texture = ExtResource("1_en7f3")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Background"]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 29.0
+offset_right = 1152.0
+offset_bottom = 78.0
+text = "It's the year 2063. Humanity has just received its first evidence of alien life from the hubble telescope. The species called themselves Oxaxians, 
+and they warned us not to reach out again. They were at war with a species called the Solarite, and wanted to keep us safe."
+
+[node name="Next Button" parent="Background" instance=ExtResource("2_pfvjq")]
+offset_left = 942.0
+offset_top = 508.0
+offset_right = 1091.0
+offset_bottom = 539.0
+text = "Next"
+level_path = "res://src/Scenes/back_story_2.tscn"

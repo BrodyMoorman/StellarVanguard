@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyw486cr7kvyr"]
+
+[ext_resource type="Texture2D" uid="uid://r4avdvbb8xxs" path="res://Assets/Images/ayo.jpg" id="1_ppe76"]
+[ext_resource type="PackedScene" uid="uid://s3vkyk4tuyr6" path="res://src/Scenes/level_button.tscn" id="2_bppff"]
+
+[node name="BackStory3" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+light_mask = 2
+visibility_layer = 2
+offset_right = 1164.0
+offset_bottom = 673.0
+texture = ExtResource("1_ppe76")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 52.0
+offset_right = 383.0
+offset_bottom = 75.0
+text = "To try and combat the impending invasion, people from all over earth were recruited to enhance the human space fleet. You are one of these 
+heros. Hopefully your preparations have been enough... humanity stands with you..."
+
+[node name="Level Select Sc" parent="." instance=ExtResource("2_bppff")]
+offset_left = 942.0
+offset_top = 508.0
+offset_right = 1091.0
+offset_bottom = 539.0
+text = "Begin the Defense"
+level_path = "res://src/Scenes/level_select.tscn"

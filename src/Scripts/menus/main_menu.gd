@@ -11,7 +11,7 @@ func _process(_delta: float) -> void:
 
 # loads a fresh game when clicked
 func _on_start_button_pressed() -> void: 
-	get_tree().change_scene_to_file("res://src/Scenes/level_select.tscn")
+	get_tree().change_scene_to_file("res://src/Scenes/back_story_1.tscn")
 
 # loads the options menu when clicked
 func _on_options_button_pressed() -> void:
