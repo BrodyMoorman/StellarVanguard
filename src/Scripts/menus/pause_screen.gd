@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 
 func _on_resume_game_pressed() -> void:
 	get_tree().paused = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	Engine.time_scale = 1
 
 func _on_quit_game_pressed() -> void:

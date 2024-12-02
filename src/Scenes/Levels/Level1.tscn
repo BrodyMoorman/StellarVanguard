@@ -1117,8 +1117,10 @@ quantity = 1
 script = ExtResource("1_nsj7o")
 
 [node name="UI" type="CanvasLayer" parent="."]
+layer = 5
 
 [node name="InventoryInterface" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
