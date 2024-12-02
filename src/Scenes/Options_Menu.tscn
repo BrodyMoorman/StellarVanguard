@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://8t2fbmkfnkr0"]
 
-[ext_resource type="Script" path="res://src/Scenes/options_menu.gd" id="1_0opst"]
+[ext_resource type="Script" path="res://src/Scripts/menus/options_menu.gd" id="1_0opst"]
 [ext_resource type="Texture2D" uid="uid://cmkvtdnn44yu8" path="res://Assets/Images/space background.jpg" id="2_1h3n4"]
 
 [node name="Options Menu" type="Control"]
@@ -43,10 +43,12 @@ text = "Controls"
 [node name="Background" type="TextureRect" parent="."]
 light_mask = 2
 visibility_layer = 2
+layout_mode = 0
 offset_right = 1164.0
 offset_bottom = 673.0
 texture = ExtResource("2_1h3n4")
 expand_mode = 1
 
 [connection signal="pressed" from="VBoxContainer/Back Button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBoxContainer2/Controls" to="." method="_on_controls_pressed"]

@@ -111,7 +111,7 @@ height = 21.0
 size = Vector2(20, 9.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vt84a"]
-size = Vector2(4.5, 3)
+size = Vector2(5.25, 14)
 
 [node name="alien_enemy_1" type="CharacterBody2D" groups=["damageable"]]
 z_index = 2
@@ -143,10 +143,12 @@ collision_mask = 128
 position = Vector2(-1, -1.25)
 shape = SubResource("RectangleShape2D_1m4my")
 
-[node name="Area2D2" type="Area2D" parent="."]
+[node name="DamageBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
-position = Vector2(9, 2)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageBox"]
+position = Vector2(-11.375, 1)
 shape = SubResource("RectangleShape2D_vt84a")
 
 [node name="HitBox" type="Area2D" parent="." groups=["damageable"]]
@@ -168,3 +170,5 @@ scale = Vector2(0.284058, 0.36645)
 text = "❗"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="DamageBox" to="." method="_on_damage_box_area_entered"]
+[connection signal="body_entered" from="DamageBox" to="." method="_on_damage_box_body_entered"]
