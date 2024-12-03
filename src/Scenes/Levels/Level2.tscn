@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://cm3ada60785vn"]
+[gd_scene load_steps=36 format=4 uid="uid://cm3ada60785vn"]
 
 [ext_resource type="Script" path="res://src/Scenes/game.gd" id="1_u1nfh"]
 [ext_resource type="Script" path="res://src/inventory/inventory_interface.gd" id="2_bqe77"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://c26e78jashk4w" path="res://src/Scenes/alien_enemy_1.tscn" id="13_q76it"]
 [ext_resource type="Script" path="res://src/teleport.gd" id="14_g0hxf"]
 [ext_resource type="Texture2D" uid="uid://dbsofe15wttki" path="res://Assets/Sprites/Portal/Dimensional_Portal.png" id="15_rfhbv"]
-[ext_resource type="PackedScene" uid="uid://ht3o5gtqm4ql" path="res://src/Scenes/level_select_trigger.tscn" id="16_n6tin"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g483r"]
 texture = ExtResource("6_u0e04")
@@ -150,10 +149,6 @@ script = ExtResource("10_jsivs")
 item_data = ExtResource("8_iw0u0")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_f1wjv"]
-script = ExtResource("9_278uq")
-slot_datas = Array[ExtResource("10_jsivs")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_adbj4"]
 atlas = ExtResource("15_rfhbv")
 region = Rect2(0, 0, 32, 32)
@@ -208,6 +203,64 @@ animations = [{
 resource_local_to_scene = true
 size = Vector2(2111, 61)
 
+[sub_resource type="Resource" id="Resource_5ot40"]
+script = ExtResource("9_278uq")
+slot_datas = Array[ExtResource("10_jsivs")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbd7g"]
+atlas = ExtResource("15_rfhbv")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x31op"]
+atlas = ExtResource("15_rfhbv")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k663w"]
+atlas = ExtResource("15_rfhbv")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya5md"]
+atlas = ExtResource("15_rfhbv")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iot83"]
+atlas = ExtResource("15_rfhbv")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c58pa"]
+atlas = ExtResource("15_rfhbv")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nuqyi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbd7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x31op")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k663w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya5md")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iot83")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c58pa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxa38"]
+resource_local_to_scene = true
+size = Vector2(39, 104.5)
+
 [node name="Level2" type="Node2D"]
 script = ExtResource("1_u1nfh")
 
@@ -252,20 +305,6 @@ tile_set = SubResource("TileSet_p1fpd")
 [node name="Pickup" parent="." instance=ExtResource("7_uv15c")]
 position = Vector2(280, 60)
 slot_data = SubResource("Resource_ji4aw")
-
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
-position = Vector2(-15, 46)
-zoom = Vector2(1.5, 1.5)
-position_smoothing_speed = 100.0
-script = ExtResource("7_eawrn")
-player = NodePath("../Player")
-
-[node name="Player" parent="." instance=ExtResource("8_yh56j")]
-position = Vector2(27, 75)
-scale = Vector2(1.75, 1.75)
-inventory_data = SubResource("Resource_f1wjv")
-speed = 200
-jump_velocity = -440
 
 [node name="Alien_enemy_1" parent="." instance=ExtResource("13_q76it")]
 position = Vector2(368, -142)
@@ -365,8 +404,38 @@ shape = SubResource("RectangleShape2D_k84rr")
 [node name="Destination" type="Marker2D" parent="Pit"]
 position = Vector2(-232, -611)
 
-[node name="LevelSelectTrigger" parent="." instance=ExtResource("16_n6tin")]
-position = Vector2(6574, 118)
-script = null
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+position = Vector2(-15, 46)
+zoom = Vector2(1.5, 1.5)
+position_smoothing_speed = 100.0
+script = ExtResource("7_eawrn")
+player = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("8_yh56j")]
+position = Vector2(27, 75)
+scale = Vector2(1.75, 1.75)
+inventory_data = SubResource("Resource_5ot40")
+speed = 200
+jump_velocity = -440
+
+[node name="TeleportLvl2" type="Area2D" parent="."]
+position = Vector2(6586, 137)
+collision_mask = 3
+script = ExtResource("14_g0hxf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TeleportLvl2"]
+visible = false
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_nuqyi")
+autoplay = "default"
+frame_progress = 0.0583151
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportLvl2"]
+position = Vector2(-8.5, -28.75)
+shape = SubResource("RectangleShape2D_nxa38")
+
+[node name="Destination" type="Marker2D" parent="TeleportLvl2"]
+position = Vector2(-125, -1)
 
 [connection signal="body_entered" from="Pit" to="Pit" method="_on_body_entered"]
+[connection signal="body_entered" from="TeleportLvl2" to="TeleportLvl2" method="_on_body_entered"]

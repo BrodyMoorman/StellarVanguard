@@ -11,6 +11,10 @@ func _on_body_entered(body: Node2D) -> void:
 		elif(self.name == "SecondLevel"):
 			get_tree().change_scene_to_file("res://src/Scenes/Levels/Level2.tscn")
 			print("level one to level two teleport")
+		elif(self.name == "TeleportLvl2"):
+			get_tree().change_scene_to_file("res://src/Scenes/Levels/Level3.tscn")
+		elif(self.name == "EndGame"):
+			get_tree().change_scene_to_file("res://src/Scenes/end_screen.tscn")
 		else:
 			body.set_position($Destination.global_position)
 			print("teleport")

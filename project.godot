@@ -20,11 +20,6 @@ config/icon="res://icon.svg"
 InteractionManager="*res://src/interaction/InteractionManager.tscn"
 PlayerManager="*res://src/Scripts/player/player_manager.gd"
 
-[display]
-
-window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
-
 [global_group]
 
 player=""

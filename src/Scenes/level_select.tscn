@@ -37,7 +37,7 @@ horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-columns = 3
+columns = 4
 
 [node name="LevelButton" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("3_38lsw")]
 layout_mode = 2
@@ -47,3 +47,13 @@ level_path = "res://src/Scenes/Levels/Tutorial.tscn"
 [node name="LevelButton2" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("3_38lsw")]
 layout_mode = 2
 level_path = "res://src/Scenes/Levels/Level1.tscn"
+
+[node name="LevelButton3" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("3_38lsw")]
+layout_mode = 2
+text = "Level 2"
+level_path = "res://src/Scenes/Levels/Level2.tscn"
+
+[node name="LevelButton4" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("3_38lsw")]
+layout_mode = 2
+text = "Level 3"
+level_path = "res://src/Scenes/Levels/Level3.tscn"
