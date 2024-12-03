@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://coxh0kadwciss"]
+
+[ext_resource type="Texture2D" uid="uid://r4avdvbb8xxs" path="res://Assets/Images/ayo.jpg" id="1_ocs6s"]
+[ext_resource type="PackedScene" uid="uid://s3vkyk4tuyr6" path="res://src/Scenes/level_button.tscn" id="2_7trbw"]
+
+[node name="End Screen" type="Node2D"]
+
+[node name="Background" type="TextureRect" parent="."]
+light_mask = 2
+visibility_layer = 2
+offset_right = 1164.0
+offset_bottom = 673.0
+texture = ExtResource("1_ocs6s")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Background"]
+layout_mode = 0
+offset_left = 304.0
+offset_top = 560.0
+offset_right = 862.0
+offset_bottom = 583.0
+text = "Earth is in your debt
+"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = 258.0
+offset_top = 83.0
+offset_right = 921.0
+offset_bottom = 106.0
+text = "Thank you for playing Stellar Vanguard!"
+horizontal_alignment = 1
+
+[node name="LevelButton" parent="." instance=ExtResource("2_7trbw")]
+offset_left = 940.0
+offset_top = 479.0
+offset_right = 1002.0
+offset_bottom = 510.0
+text = "Main Menu"
+level_path = "res://src/Scenes/Main_Menu.tscn"

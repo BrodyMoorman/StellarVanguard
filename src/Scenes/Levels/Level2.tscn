@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://cm3ada60785vn"]
+[gd_scene load_steps=29 format=4 uid="uid://cm3ada60785vn"]
 
 [ext_resource type="Script" path="res://src/Scenes/game.gd" id="1_u1nfh"]
 [ext_resource type="Script" path="res://src/inventory/inventory_interface.gd" id="2_bqe77"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c26e78jashk4w" path="res://src/Scenes/alien_enemy_1.tscn" id="13_q76it"]
 [ext_resource type="Script" path="res://src/teleport.gd" id="14_g0hxf"]
 [ext_resource type="Texture2D" uid="uid://dbsofe15wttki" path="res://Assets/Sprites/Portal/Dimensional_Portal.png" id="15_rfhbv"]
+[ext_resource type="PackedScene" uid="uid://ht3o5gtqm4ql" path="res://src/Scenes/level_select_trigger.tscn" id="16_n6tin"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g483r"]
 texture = ExtResource("6_u0e04")
@@ -363,5 +364,9 @@ shape = SubResource("RectangleShape2D_k84rr")
 
 [node name="Destination" type="Marker2D" parent="Pit"]
 position = Vector2(-232, -611)
+
+[node name="LevelSelectTrigger" parent="." instance=ExtResource("16_n6tin")]
+position = Vector2(6574, 118)
+script = null
 
 [connection signal="body_entered" from="Pit" to="Pit" method="_on_body_entered"]
