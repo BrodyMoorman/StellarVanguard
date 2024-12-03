@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://brsl2rjtf7k7g" path="res://src/Scenes/vent.tscn" id="8_nq55c"]
 [ext_resource type="Script" path="res://src/Scripts/popup_text.gd" id="9_5px4x"]
 [ext_resource type="PackedScene" uid="uid://c2g1kki5yj0sx" path="res://src/Scenes/hackable_laser.tscn" id="10_fe8ox"]
-[ext_resource type="PackedScene" uid="uid://bu6lvy7t435f0" path="res://src/Scenes/tripwire.tscn" id="10_vau56"]
+[ext_resource type="PackedScene" uid="uid://dn32c5ny4l8bl" path="res://src/Scenes/alien_enemy_2.tscn" id="10_i5jii"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rlhlh"]
 texture = ExtResource("3_wcw86")
@@ -862,8 +862,8 @@ position = Vector2(3564, 618)
 [node name="HackableTerminal" parent="." instance=ExtResource("10_fe8ox")]
 position = Vector2(4657, 465)
 
-[node name="tripwire" parent="." instance=ExtResource("10_vau56")]
-position = Vector2(80, 12)
+[node name="alien_enemy_2" parent="." instance=ExtResource("10_i5jii")]
+position = Vector2(255, -50)
 
 [connection signal="body_entered" from="EndOfFirstRoom" to="EndOfFirstRoom" method="_on_body_entered"]
 [connection signal="body_entered" from="FallingFromIntroParkour" to="FallingFromIntroParkour" method="_on_body_entered"]
