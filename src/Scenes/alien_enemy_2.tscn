@@ -1,53 +1,54 @@
-[gd_scene load_steps=18 format=3 uid="uid://c26e78jashk4w"]
+[gd_scene load_steps=20 format=3 uid="uid://dn32c5ny4l8bl"]
 
-[ext_resource type="Script" path="res://src/Scripts/enemies/alien_enemy_1.gd" id="1_d3v74"]
-[ext_resource type="Texture2D" uid="uid://y2p0ttmlf581" path="res://Assets/SpriteSheets/AlienGruntMovement.png" id="2_fukol"]
+[ext_resource type="Script" path="res://src/Scripts/enemies/alien_enemy_2.gd" id="1_i5kf1"]
+[ext_resource type="Texture2D" uid="uid://y2p0ttmlf581" path="res://Assets/SpriteSheets/AlienGruntMovement.png" id="2_8dkek"]
+[ext_resource type="Script" path="res://src/Scenes/tripwire_noise_visualization.gd" id="3_d27x5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bk1cc"]
-atlas = ExtResource("2_fukol")
+atlas = ExtResource("2_8dkek")
 region = Rect2(0, 2560, 1280, 1280)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_el765"]
-atlas = ExtResource("2_fukol")
+atlas = ExtResource("2_8dkek")
 region = Rect2(0, 0, 1280, 1280)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ylyhn"]
-atlas = ExtResource("2_fukol")
+atlas = ExtResource("2_8dkek")
 region = Rect2(0, 2560, 1280, 1280)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kjakj"]
-atlas = ExtResource("2_fukol")
+atlas = ExtResource("2_8dkek")
 region = Rect2(1280, 2560, 1280, 1280)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_76va1"]
-atlas = ExtResource("2_fukol")
+atlas = ExtResource("2_8dkek")
 region = Rect2(2560, 2560, 1280, 1280)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k6mg2"]
-atlas = ExtResource("2_fukol")
+atlas = ExtResource("2_8dkek")
 region = Rect2(0, 3840, 1280, 1280)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v0muh"]
-atlas = ExtResource("2_fukol")
+atlas = ExtResource("2_8dkek")
 region = Rect2(1280, 0, 1280, 1280)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bva1m"]
-atlas = ExtResource("2_fukol")
+atlas = ExtResource("2_8dkek")
 region = Rect2(2560, 0, 1280, 1280)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d6onw"]
-atlas = ExtResource("2_fukol")
+atlas = ExtResource("2_8dkek")
 region = Rect2(0, 1280, 1280, 1280)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u6ojw"]
-atlas = ExtResource("2_fukol")
+atlas = ExtResource("2_8dkek")
 region = Rect2(1280, 1280, 1280, 1280)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q2s0w"]
-atlas = ExtResource("2_fukol")
+atlas = ExtResource("2_8dkek")
 region = Rect2(2560, 1280, 1280, 1280)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_qynnv"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_f0fwk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -103,27 +104,26 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ebv2k"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nxsvj"]
 radius = 5.0
 height = 21.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1m4my"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k0kb2"]
 size = Vector2(20, 9.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vt84a"]
-size = Vector2(5.25, 14)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrcjc"]
+size = Vector2(4.5, 3)
 
-[node name="alien_enemy_1" type="CharacterBody2D" groups=["damageable"]]
-z_index = 2
-collision_layer = 536887424
-collision_mask = 16513
-script = ExtResource("1_d3v74")
+[sub_resource type="CircleShape2D" id="CircleShape2D_712fm"]
+
+[node name="alien_enemy_2" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_i5kf1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.0184375, 0.0184375)
-sprite_frames = SubResource("SpriteFrames_qynnv")
+sprite_frames = SubResource("SpriteFrames_f0fwk")
 animation = &"move_right"
-frame_progress = 0.311384
 speed_scale = 2.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -133,7 +133,7 @@ target_position = Vector2(0, 13)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.5)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_ebv2k")
+shape = SubResource("CapsuleShape2D_nxsvj")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(1, 4)
@@ -141,15 +141,13 @@ collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-1, -1.25)
-shape = SubResource("RectangleShape2D_1m4my")
+shape = SubResource("RectangleShape2D_k0kb2")
 
-[node name="DamageBox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 256
+[node name="Area2D2" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageBox"]
-position = Vector2(-11.375, 1)
-shape = SubResource("RectangleShape2D_vt84a")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(9, 2)
+shape = SubResource("RectangleShape2D_wrcjc")
 
 [node name="HitBox" type="Area2D" parent="." groups=["damageable"]]
 collision_layer = 16384
@@ -158,7 +156,7 @@ collision_mask = 16384
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, 2.5)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_ebv2k")
+shape = SubResource("CapsuleShape2D_nxsvj")
 
 [node name="AlertIndicator" type="Label" parent="."]
 visible = false
@@ -169,6 +167,16 @@ offset_bottom = 13.0
 scale = Vector2(0.284058, 0.36645)
 text = "❗"
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="area_entered" from="DamageBox" to="." method="_on_damage_box_area_entered"]
-[connection signal="body_entered" from="DamageBox" to="." method="_on_damage_box_body_entered"]
+[node name="EcholocationArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EcholocationArea"]
+shape = SubResource("CircleShape2D_712fm")
+
+[node name="NoiseVisualization" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_d27x5")
+
+[connection signal="area_entered" from="EcholocationArea" to="." method="_on_echolocation_area_entered"]
