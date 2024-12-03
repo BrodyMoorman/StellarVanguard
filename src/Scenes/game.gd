@@ -16,10 +16,11 @@ func get_deployables_node()-> Node:
 
 func toggle_inventory_interface() -> void:
 	inventory_interface.visible = not  inventory_interface.visible
-	
 	if inventory_interface.visible:
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		hot_bar_inventory.hide()
 	else:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		hot_bar_inventory.show()
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		hot_bar_inventory.show()	
+
+		

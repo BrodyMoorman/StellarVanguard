@@ -15,6 +15,7 @@ const JUMP_VELOCITY = -400.0
 @export var attack_cooldown: float = 2  # Time between attacks
 @export var noise_detection_range: float = 150.0
 @export var noise_timeout: float = 0.1  # How long to wait at the last known location before resuming patrol
+@export var damage_amount : int = 15
 
 @onready var player = null
 
@@ -155,11 +156,14 @@ func investigate_noise() -> void:
 	if not reached_location:  # Only move toward the location if it hasn't been reached
 		if position.distance_to(last_known_player_position) > 10:  # Some threshold for stopping
 			var direction_to_location = (last_known_player_position - position).normalized()
+			
+			if (last_known_player_position.x < position.x && facing_right):
+				facing_right = !facing_right
+				scale.x = -scale.x
+			if (last_known_player_position.x > position.x && !facing_right):
+				facing_right = !facing_right
+				scale.x = -scale.x
 			velocity.x = direction_to_location.x * chase_speed
-			if velocity.x < 0:
-				scale.x = -1* abs(scale.x)
-			if velocity.x > 0:
-				scale.x = abs(scale.x)
 			if not is_on_floor():
 				velocity += get_gravity() * get_physics_process_delta_time()
 			
@@ -209,3 +213,15 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	is_investigating_noise = true
 	reached_location =  false
 	jump_attempts = 0  # Reset jump attempts
+
+
+
+
+
+func _on_damage_box_body_entered(body: Node2D) -> void:
+	print("I should do some damage")
+	var direction_to_body = (body.position - position).normalized()
+	body.velocity.x -= 400
+	body.velocity.y -= 400
+	body.take_damage(damage_amount)
+	

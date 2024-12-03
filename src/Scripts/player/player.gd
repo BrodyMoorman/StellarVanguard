@@ -80,12 +80,15 @@ func _ready() -> void:
 
 func _process(delta):
 	if Input.is_action_just_pressed("pause_game"):
+		if inventory_open:
+			toggle_inventory.emit()
+			inventory_open = !inventory_open			
 		pauseGame()
 	
 	if Engine.time_scale != 0:
 		paused = !paused
 		pauseMenu.hide()
-		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
 
 func updateAnimation() -> void:
 	var idle = !velocity.x
@@ -132,7 +135,7 @@ func increment_freq()->void:
 	freq_label.text = "%sMHz" % current_frequency
 	
 func decrement_freq()->void:
-	if current_frequency > 2:
+	if current_frequency >= 2:
 		current_frequency-=1
 		freq_label.text = "%sMHz" % current_frequency
 
@@ -333,6 +336,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		toggle_inventory.emit()
 		inventory_open = !inventory_open
+
 	
 	if Input.is_action_pressed("attack"):
 		if(!player_hidden && !inventory_open):
@@ -362,10 +366,13 @@ func _physics_process(delta: float) -> void:
 		if direction:
 			last_direction = direction
 			velocity.x = direction * speed* speed_multiplier
-			if(is_crouching):
-				sound_area.shape.set_radius(crouching_sound_radius)
+			if is_on_floor():
+				if(is_crouching):
+					sound_area.shape.set_radius(crouching_sound_radius)
+				else:
+					sound_area.shape.set_radius(walking_sound_radius)
 			else:
-				sound_area.shape.set_radius(walking_sound_radius)
+				sound_area.shape.set_radius(move_toward(sound_area.shape.radius, 8, 5))
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 			sound_area.shape.set_radius(move_toward(sound_area.shape.radius, 8, 5))
