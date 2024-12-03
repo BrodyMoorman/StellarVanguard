@@ -10,10 +10,10 @@ const JUMP_VELOCITY = -400.0
 
 @export var starting_health: int = 100
 
-@export var detection_range: float = 50
-@export var attack_range: float = 30
+@export var detection_range: float = 60
+@export var attack_range: float = 50
 @export var attack_damage: int = 10
-@export var attack_cooldown: float = 2  # Time between attacks
+@export var attack_cooldown: float = 2 # Time between attacks
 
 @export var noise_detection_range: float = 150.0
 @export var noise_timeout: float = 0.1  # How long to wait at the last known location before resuming patrol
@@ -39,6 +39,8 @@ var is_chasing: bool = false
 
 var facing_right: bool = true 
 var can_attack: bool = true
+var attack_timer: float = 0.0
+
 var direction: String = "right"
 
 var knockback_force = 500
@@ -73,6 +75,13 @@ func _physics_process(delta: float) -> void:
 	
 	if is_echolocating:
 		expand_echolocation(delta)
+	if is_chasing:
+		if not can_attack:
+			attack_timer += delta 
+			if attack_timer >= attack_cooldown:
+				can_attack = true
+				attack_timer = 0.0
+		chase_player()
 	move_and_slide()
 	
 
@@ -97,12 +106,7 @@ func expand_echolocation(delta: float) -> void:
 
 
 func _on_echolocation_area_entered(area: Area2D) -> void:
-	print("Area Entered:")
-	print("  Name:", area.name)
-	print("  Parent:", area.get_parent())
-	print("  Groups:", area.get_groups())
 	if area.get_parent().is_in_group("Player"):
-		print("Player detected via echolocation!")
 		is_echolocating = false
 		noise_visualization.visible = false
 		player = area.get_parent()
@@ -111,16 +115,16 @@ func _on_echolocation_area_entered(area: Area2D) -> void:
 
 
 func _on_echolocation_timeout() -> void:
-	print("Echolocation cooldown finished.")
 	start_echolocation()
 
 
 func die():
-	print("Enemy killed")
 	queue_free()  # This will despawn the enemy
 	
 	
 func patrol() -> void:
+	if is_chasing:
+		chase_player()
 	if ((not raycast.is_colliding() and is_on_floor()) || velocity.x  == 0):
 		# Flip direction when reaching the edge
 		facing_right = !facing_right
@@ -132,31 +136,36 @@ func patrol() -> void:
 		
 		
 func chase_player() -> void:
-	#todo: Make sure it flips direction at walls or can jump, as necessary
-	if player:
+	var players = get_tree().get_nodes_in_group("Player")
+	if players.size() == 0:
+		return
+	
+	player = players[0]
+	var distance_squared = global_position.distance_squared_to(player.global_position)
+
+	if distance_squared < detection_range * detection_range:
 		var direction_to_player = sign(player.position.x - position.x)
 		velocity.x = direction_to_player * chase_speed
 		
+		# Update facing direction
 		var prev_face = facing_right
-		if direction_to_player > 0:
-			facing_right = true
-		else:
-			facing_right = false
-		
+		facing_right = direction_to_player > 0
 		if prev_face != facing_right:
 			scale.x = -scale.x
-			
-		if global_position.distance_to(player.global_position) <= attack_range and can_attack:
+
+		# Check attack range
+		if distance_squared <= attack_range * attack_range and can_attack:
+			print("Performing attack")
 			perform_attack()
-		if global_position.distance_to(player.global_position) > detection_range:
-			is_chasing = false
+	else:
+		print("Player lost")
+		is_chasing = false
+		player = null
+		patrol()
 			
 
 func perform_attack() -> void:
-	print("performing attack")
 	#play attack animation
 	can_attack = false
 	if player and player.is_in_group("player"):
 		player.take_damage(attack_damage)
-	await(get_tree().create_timer(attack_cooldown))
-	can_attack = true
