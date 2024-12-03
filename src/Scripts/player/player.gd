@@ -74,7 +74,14 @@ func _ready() -> void:
 	add_to_group("Player")
 	PlayerManager.player = self
 	health_bar.value = health
+	var invData = InventoryData.new()
+	var slotdatas: Array[SlotData]
+	slotdatas.resize(18)
+	invData.slot_datas = slotdatas
+	inventory_data = invData
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
 	
 	
 
@@ -160,12 +167,19 @@ func unhide_player():
 	
 func die() -> void:
 	dead = true
+	await clear_inv()
 	velocity = Vector2.ZERO
 	animations.play("death")
 	# this is where we'll show the UI for respawn and etc
 	Engine.time_scale = 0
 	respawn.show()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+func clear_inv():
+	print("this ran")
+	for slot in inventory_data.slot_datas:
+		slot = null
+	inventory_data.updateInv()
 
 func deploy_boombox()->void:
 	var new_boombox = BoomBox.instantiate()

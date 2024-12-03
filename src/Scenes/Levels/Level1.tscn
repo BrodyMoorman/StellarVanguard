@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://c2k77hjdbeade"]
+[gd_scene load_steps=57 format=4 uid="uid://c2k77hjdbeade"]
 
 [ext_resource type="Script" path="res://src/Scenes/game.gd" id="1_nsj7o"]
 [ext_resource type="Script" path="res://src/inventory/inventory_interface.gd" id="2_vnbvf"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://src/inventory/inventory_data.gd" id="12_qd77o"]
 [ext_resource type="Script" path="res://src/Scripts/extra/hackable_terminal.gd" id="12_rnb0k"]
 [ext_resource type="PackedScene" uid="uid://d4a4dps0qsi5y" path="res://src/interaction/interactionArea/interactionArea.tscn" id="13_ddc03"]
+[ext_resource type="Resource" uid="uid://cuyqx7hkbsldg" path="res://src/item/items/equipableAlarmClock.tres" id="13_q8tb5"]
 [ext_resource type="AudioStream" uid="uid://c37nvpl2r5sa4" path="res://Assets/Sounds/power-down.wav" id="14_6o6du"]
 [ext_resource type="AudioStream" uid="uid://cfumjhjmn10h4" path="res://Assets/Sounds/power-up (mp3cut.net).wav" id="15_gmtfm"]
 [ext_resource type="AudioStream" uid="uid://bw2rt7ck2tjx2" path="res://Assets/Sounds/zap.mp3" id="16_ljaso"]
@@ -155,9 +156,14 @@ script = ExtResource("8_yi1w5")
 item_data = ExtResource("8_e1o86")
 quantity = 1
 
+[sub_resource type="Resource" id="Resource_m5fbt"]
+script = ExtResource("8_yi1w5")
+item_data = ExtResource("13_q8tb5")
+quantity = 1
+
 [sub_resource type="Resource" id="Resource_vgdwb"]
 script = ExtResource("12_qd77o")
-slot_datas = Array[ExtResource("8_yi1w5")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slot_datas = Array[ExtResource("8_yi1w5")]([SubResource("Resource_m5fbt"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ebnmb"]
 texture = ExtResource("6_inpvf")
