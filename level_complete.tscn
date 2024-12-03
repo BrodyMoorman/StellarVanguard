@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://f66elmc3putq"]
+
+[ext_resource type="Texture2D" uid="uid://ddve0g05ifup2" path="res://Assets/Images/alien planet.jpg" id="1_fwf6k"]
+[ext_resource type="PackedScene" uid="uid://s3vkyk4tuyr6" path="res://src/Scenes/level_button.tscn" id="2_h2gif"]
+
+[node name="LevelComplete" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+light_mask = 2
+visibility_layer = 2
+offset_right = 1164.0
+offset_bottom = 673.0
+texture = ExtResource("1_fwf6k")
+expand_mode = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Background"]
+top_level = true
+offset_left = 572.0
+offset_top = 266.0
+offset_right = 692.0
+offset_bottom = 402.0
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="Background/VBoxContainer2"]
+layout_mode = 2
+text = "Level Complete:
+Nicely Done!"
+horizontal_alignment = 1
+
+[node name="LevelButton" parent="Background/VBoxContainer2" instance=ExtResource("2_h2gif")]
+layout_mode = 2
+text = "Select Level"
+level_path = "res://src/Scenes/level_select.tscn"
+
+[node name="LevelButton2" parent="Background/VBoxContainer2" instance=ExtResource("2_h2gif")]
+layout_mode = 2
+text = "Quit Game"
+level_path = "res://src/Scenes/Main_Menu.tscn"
