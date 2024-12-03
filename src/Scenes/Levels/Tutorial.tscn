@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=4 uid="uid://dnqd1m0fa1wdd"]
+[gd_scene load_steps=52 format=4 uid="uid://dnqd1m0fa1wdd"]
 
 [ext_resource type="PackedScene" uid="uid://bg6re0ge1bbcc" path="res://src/Scenes/player.tscn" id="1_a4xq3"]
 [ext_resource type="Texture2D" uid="uid://cyqfiydc0grwu" path="res://Assets/Tiles/Science Lab/level_tileset.png" id="3_wcw86"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://brsl2rjtf7k7g" path="res://src/Scenes/vent.tscn" id="8_nq55c"]
 [ext_resource type="Script" path="res://src/Scripts/popup_text.gd" id="9_5px4x"]
 [ext_resource type="PackedScene" uid="uid://c2g1kki5yj0sx" path="res://src/Scenes/hackable_laser.tscn" id="10_fe8ox"]
+[ext_resource type="PackedScene" uid="uid://bu6lvy7t435f0" path="res://src/Scenes/tripwire.tscn" id="10_vau56"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rlhlh"]
 texture = ExtResource("3_wcw86")
@@ -860,6 +861,9 @@ position = Vector2(3564, 618)
 
 [node name="HackableTerminal" parent="." instance=ExtResource("10_fe8ox")]
 position = Vector2(4657, 465)
+
+[node name="tripwire" parent="." instance=ExtResource("10_vau56")]
+position = Vector2(80, 12)
 
 [connection signal="body_entered" from="EndOfFirstRoom" to="EndOfFirstRoom" method="_on_body_entered"]
 [connection signal="body_entered" from="FallingFromIntroParkour" to="FallingFromIntroParkour" method="_on_body_entered"]
