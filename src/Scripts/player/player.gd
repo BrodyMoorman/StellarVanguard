@@ -366,10 +366,13 @@ func _physics_process(delta: float) -> void:
 		if direction:
 			last_direction = direction
 			velocity.x = direction * speed* speed_multiplier
-			if(is_crouching):
-				sound_area.shape.set_radius(crouching_sound_radius)
+			if is_on_floor():
+				if(is_crouching):
+					sound_area.shape.set_radius(crouching_sound_radius)
+				else:
+					sound_area.shape.set_radius(walking_sound_radius)
 			else:
-				sound_area.shape.set_radius(walking_sound_radius)
+				sound_area.shape.set_radius(move_toward(sound_area.shape.radius, 8, 5))
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 			sound_area.shape.set_radius(move_toward(sound_area.shape.radius, 8, 5))
